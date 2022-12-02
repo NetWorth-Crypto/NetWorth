@@ -9,7 +9,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long role_id;
 
-    @Column
+    @Column(nullable = false,unique = true)
     private String type;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
