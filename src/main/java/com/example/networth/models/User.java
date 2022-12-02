@@ -1,6 +1,7 @@
 package com.example.networth.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
@@ -8,9 +9,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
 
-    @ManyToOne
-    @JoinColumn (name = "role_id")
-    private Role role;
+
+    @Column(nullable = false, unique = true)
+    private String user_name;
 
     @Column(nullable = false)
     private String first_name;
@@ -23,6 +24,14 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Follower> followers;
+
 
     public User() {
     }
@@ -82,5 +91,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public List<Follower> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Follower> followers) {
+        this.followers = followers;
     }
 }
