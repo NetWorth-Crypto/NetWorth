@@ -6,18 +6,19 @@ import java.util.List;
 @Entity
 public class User {
     @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long user_id;
+    private long id;
 
 
-    @Column(nullable = false, unique = true)
-    private String user_name;
+    @Column(nullable = false, unique = true, name = "user_name")
+    private String userName;
 
-    @Column(nullable = false)
-    private String first_name;
+    @Column(nullable = false, name = "first_name")
+    private String firstName;
 
-    @Column(nullable = false)
-    private String last_name;
+    @Column(nullable = false, name = "last_name")
+    private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -36,21 +37,21 @@ public class User {
     public User() {
     }
 
-    public User(long user_id, Role role, String first_name, String last_name, String email, String password) {
-        this.user_id = user_id;
+    public User(long id, Role role, String firstName, String lastName, String email, String password) {
+        this.id = id;
         this.role = role;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.userName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public long id() {
+        return id;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUser_id(long id) {
+        this.id = id;
     }
 
     public Role getRole() {
@@ -61,20 +62,20 @@ public class User {
         this.role = role;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
     public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+        this.firstName = first_name;
     }
 
     public String getLast_name() {
-        return last_name;
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLast_name(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -93,12 +94,12 @@ public class User {
         this.password = password;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUser_name(String userName) {
+        this.userName = userName;
     }
 
     public List<Follower> getFollowers() {
