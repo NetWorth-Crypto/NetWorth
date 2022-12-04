@@ -1,6 +1,7 @@
 package com.example.networth.controllers;
 
 import com.example.networth.models.User;
+import com.example.networth.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @GetMapping("/sign-up")
@@ -23,7 +29,8 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public String saveUser(@ModelAttribute User user){
-        System.out.println("reached");
+        userService.saveUser(user);
+
 
         return "redirect:/login";
     }
@@ -38,6 +45,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String LoginUser(@ModelAttribute User user){
+
         System.out.println("reached");
 
         return "redirect:/landing";

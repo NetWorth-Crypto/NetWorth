@@ -6,7 +6,6 @@ import java.util.List;
 @Entity
 public class User {
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -46,11 +45,21 @@ public class User {
         this.password = password;
     }
 
-    public long id() {
+    public User(String userName, String firstName, String lastName, String email, String password) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+
+
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setUser_id(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -66,15 +75,15 @@ public class User {
         return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.firstName = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLast_name(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -98,7 +107,7 @@ public class User {
         return userName;
     }
 
-    public void setUser_name(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
