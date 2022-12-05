@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <div th:replace="fragments :: myheader"></div>
+
+    <div th:replace="fragments :: css"></div>
+
     <meta charset="UTF-8"/>
     <title>Your Feed</title>
 </head>
 <body>
+<div th:replace="fragments :: landing-navbar"></div>
 
+<button class="button"><a href="create-post">Create Post</a></button>
+
+<section id="create-post">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="#" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Cool Story Bro</p>
+        </div>
+    </div>
+</section>
+
+<div th:replace="fragments :: jsFile"></div>
 </body>
 </html>
