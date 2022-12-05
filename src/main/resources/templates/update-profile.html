@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Update Profile</title>
+</head>
+<body>
+<section class="col-md-4">
+    <div class="update-profile">
+        <img src="#" alt="profile pic">
+        <h1>Username</h1>
+        <div class="btn">
+            <button><a href="#">Update Profile Picture</a></button>
+            <br>
+            <button><a href="#">Delete Account</a></button>
+            <br>
+            <button><a href="#">Deactivate Account</a></button>
+        </div>
+    </div>
+</section>
+<section class="col-md-8">
+    <h2>Update Info</h2>
+    <input type="text" placeholder="Change Username">
+    <input type="text" placeholder="Update Email Address">
+    <input type="text" placeholder="Update Password">
+    <button><a href="profile">Submit Changes</a></button>
+</section>
+
+<div th:replace="fragments :: jsFile"></div>
+</body>
+</html>
