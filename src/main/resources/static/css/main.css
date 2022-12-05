@@ -105,3 +105,16 @@ body
 {
     cursor: pointer;
 }
+
+/*******************************************************/
+/* Create Post (currently as Bootstrap) */
+#create-post
+{
+    position: absolute;
+    top: 35%;
+    left: 39%;
+}
+a
+{
+    text-decoration: none;
+}
