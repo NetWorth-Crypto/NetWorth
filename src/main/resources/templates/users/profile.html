@@ -10,17 +10,20 @@
 </head>
 <body>
 <div th:replace="fragments :: landing-navbar"></div>
-<section class="row">
+<section class="">
     <div class="profile-info">
-    <h1>Username</h1>
-        <div class="btn-group">
+        <img src="#" alt="profile pic">
+        <h1>Username</h1>
+        <div class="btn">
             <button>My Network</button>
+            <br>
             <button>Update My Info</button>
+            <br>
             <button>Create Post</button>
         </div>
     </div>
 </section>
-
+<input type="text" placeholder="Search Posts" class="search-user-posts">
 <div th:replace="fragments :: jsFile"></div>
 </body>
 </html>
