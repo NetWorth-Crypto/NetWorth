@@ -32,6 +32,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Follower> followers;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Following> followings;
+
+
+
 
     public User() {
     }
