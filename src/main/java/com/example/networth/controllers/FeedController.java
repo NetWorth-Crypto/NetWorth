@@ -2,12 +2,13 @@ package com.example.networth.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 @Controller
-public class UpdateUserProfileController
+public class FeedController
 {
-    @GetMapping("/update-profile")
-    public String update()
+    @GetMapping("/feed")
+    public String feed()
     {
-        return "update-profile";
+        return "feed";
     }
 }
