@@ -25,13 +25,8 @@ public class Portfolio {
     @Column
     private boolean isPrivate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="portfolio_asset",
-            joinColumns={@JoinColumn(name="portfolio_id")},
-            inverseJoinColumns={@JoinColumn(name="asset_id")}
-    )
-    private List<Asset> assets;
+    @OneToMany(mappedBy = "portfolio")
+    private List<PortfolioAsset> portfolioAssets;
 
     public Portfolio() {
     }
