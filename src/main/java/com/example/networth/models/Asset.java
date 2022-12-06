@@ -1,6 +1,7 @@
 package com.example.networth.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Asset {
@@ -9,9 +10,8 @@ public class Asset {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "portfolio_id")
-    private Portfolio portfolio;
+    @ManyToMany(mappedBy = "assets")
+    private List<Portfolio> portfolios;
 
     @Column(unique = true, nullable = false)
     private String ticker;
@@ -47,12 +47,12 @@ public class Asset {
         this.id = id;
     }
 
-    public Portfolio getPortfolio() {
-        return portfolio;
+    public List<Portfolio> getPortfolio() {
+        return portfolios;
     }
 
-    public void setPortfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
+    public void setPortfolio(List<Portfolio> portfolios) {
+        this.portfolios = portfolios;
     }
 
     public String getTicker() {
