@@ -10,17 +10,14 @@ public class Asset {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany(mappedBy = "assets")
-    private List<Portfolio> portfolios;
+    @OneToMany(mappedBy = "asset")
+    private List<PortfolioAsset> portfolioAssets;
 
     @Column(unique = true, nullable = false)
     private String ticker;
 
     @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
-    private double quantity;
 
     @Column(nullable = false)
     private double purchasePrice;
@@ -31,10 +28,9 @@ public class Asset {
     public Asset() {
     }
 
-    public Asset(String ticker, String name, double quantity, double purchasePrice, double currentPrice) {
+    public Asset(String ticker, String name, double purchasePrice, double currentPrice) {
         this.ticker = ticker;
         this.name = name;
-        this.quantity = quantity;
         this.purchasePrice = purchasePrice;
         this.currentPrice = currentPrice;
     }
@@ -47,12 +43,13 @@ public class Asset {
         this.id = id;
     }
 
-    public List<Portfolio> getPortfolio() {
-        return portfolios;
+
+    public List<PortfolioAsset> getPortfolioAssets() {
+        return portfolioAssets;
     }
 
-    public void setPortfolio(List<Portfolio> portfolios) {
-        this.portfolios = portfolios;
+    public void setPortfolioAssets(List<PortfolioAsset> portfolioAssets) {
+        this.portfolioAssets = portfolioAssets;
     }
 
     public String getTicker() {
@@ -69,14 +66,6 @@ public class Asset {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
     }
 
     public double getPurchasePrice() {
