@@ -54,6 +54,7 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
+                       "/users/usersFinance",
                         "/posts/create", // only authenticated users can create ads
                         "/posts/{id}/edit" // only authenticated users can edit ads
                 )
