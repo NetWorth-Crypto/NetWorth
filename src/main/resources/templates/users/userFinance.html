@@ -1,10 +1,102 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Dashboard</title>
+    <div th:replace="fragments :: myheader"></div>
+
+    <div th:replace="fragments :: css"></div>
+
+    <title>Home</title>
 </head>
 <body>
+<div th:replace="fragments :: landing-navbar"></div>
 
+
+   <div class="user-area">
+
+   </div>
+<div class="row main">
+
+    <div class="col left-side">
+
+        <div class="row left">
+
+            <div class="col network">
+
+            </div>
+            <div class="col st-balance">
+
+            </div>
+
+            <div class="col t-balance">
+
+            </div>
+
+            <div class="col 24h-change">
+
+            </div>
+
+
+            <div class="col profit">
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+<!--    ******************************************************-->
+    <div class="col main-center">
+        <div class="row center">
+
+            <div class="col graph-balance">
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="col graph-holding">
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+<!--    *****************************************************-->
+    <div class="col right-side">
+
+        <div class="row right">
+
+            <div class="col portfolio">
+
+            </div>
+            <div class="col trending">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div th:replace="fragments :: jsFile"></div>
 </body>
 </html>
