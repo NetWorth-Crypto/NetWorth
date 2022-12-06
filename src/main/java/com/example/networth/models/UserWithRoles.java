@@ -3,7 +3,6 @@ package com.example.networth.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.List;
 
 public class UserWithRoles extends User implements UserDetails {
@@ -18,10 +17,7 @@ public class UserWithRoles extends User implements UserDetails {
             return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
     }
 
-    @Override
-    public String getUsername() {
-        return null;
-    }
+
 
 
     @Override
