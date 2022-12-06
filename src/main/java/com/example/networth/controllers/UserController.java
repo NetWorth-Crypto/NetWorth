@@ -2,6 +2,7 @@ package com.example.networth.controllers;
 
 import com.example.networth.models.User;
 import com.example.networth.services.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,13 @@ public class UserController {
     }
 
 
+    @GetMapping("/userFinance")
+    public String userFinancePage(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user",user);
+        System.out.println("reached");
+        return "users/sign-up";
+    }
 
 
 
