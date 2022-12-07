@@ -1,0 +1,56 @@
+package com.example.networth.models;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+public class PortfolioAsset {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    long id;
+
+    @ManyToOne
+    @JoinColumn(name = "portfolio_id")
+    Portfolio portfolio;
+
+    @ManyToOne
+    @JoinColumn(name = "asset_id")
+    Asset asset;
+
+    @Column(nullable = false)
+    double quantity;
+
+    @Column(nullable = false)
+    double purchasePrice;
+
+    @Temporal(value = TemporalType.DATE)
+    @Column(nullable = false)
+    Date purchase_date;
+
+    public PortfolioAsset() {
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
+    }
+
+    public Asset getAsset() {
+        return asset;
+    }
+
+    public void setAsset(Asset asset) {
+        this.asset = asset;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+}

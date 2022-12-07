@@ -11,7 +11,7 @@ public class User {
 
 
     @Column(nullable = false, unique = true, name = "user_name")
-    private String userName;
+    private String username;
 
     @Column(nullable = false, name = "first_name")
     private String firstName;
@@ -32,21 +32,40 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Follower> followers;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Following> followings;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Portfolio> portfolios;
+
+
+
+
 
     public User() {
     }
 
-    public User(long id, Role role, String firstName, String lastName, String email, String password) {
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        firstName = copy.firstName;
+        lastName = copy.lastName;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
+    public User(long id, Role role, String firstName, String lastName, String email, String password,String username) {
         this.id = id;
         this.role = role;
-        this.userName = firstName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.username = username;
     }
 
-    public User(String userName, String firstName, String lastName, String email, String password) {
-        this.userName = userName;
+    public User(String username, String firstName, String lastName, String email, String password) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -103,12 +122,12 @@ public class User {
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Follower> getFollowers() {

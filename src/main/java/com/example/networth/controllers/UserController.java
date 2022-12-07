@@ -2,6 +2,8 @@ package com.example.networth.controllers;
 
 import com.example.networth.models.User;
 import com.example.networth.services.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserController(UserService userService,PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -29,6 +34,8 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public String saveUser(@ModelAttribute User user){
+        String hash = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hash);
         userService.saveUser(user);
 
 
@@ -36,20 +43,19 @@ public class UserController {
     }
 
 
-    @GetMapping("/login")
-    public String showLoginForm(Model model){
-        model.addAttribute("user", new User());
+    @GetMapping("/userFinance")
+    public String userFinancePage(Model model){
+        User user = new User();
+        if(user == null){
+            return "redirect:/login";
+        }
+        model.addAttribute("user",user.getFirstName());
         System.out.println("reached");
-        return "users/login";
+        return "users/userFinance";
     }
 
-    @PostMapping("/login")
-    public String LoginUser(@ModelAttribute User user){
 
-        System.out.println("reached");
 
-        return "redirect:/landing";
-    }
 
 
 
