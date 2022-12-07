@@ -5,18 +5,25 @@
     <title></title>
 </head>
 <body>
-    <form th:action="@{/testpost}" th:method="post" th:object="${post}">
+    <form th:action="@{/create/testpost}" th:method="post" th:object="${post}">
         <input th:field="*{title}"  placeholder="Title">
         <input th:field="*{description}" placeholder="Description">
         <button type="submit">share</button>
     </form>
 
-    <form>
+    <form th:action="@{/like/testpost}" th:method="post" th:object="${post}">
+        <input hidden th:field="*{id}">
         <button name="like" type="submit">Like</button>
     </form>
 
-    <form>
+    <form th:action="@{/dislike/testpost}" th:method="post" th:object="${post}">
+        <input hidden th:field="*{id}">
         <button name="dislike" type="submit">dislike</button>
+    </form>
+
+    <form th:action="@{/postpost}" th:method="post">
+        <input hidden name="value" type="text" value="hello world">
+        <button type="submit">submit</button>
     </form>
 
 </body>
