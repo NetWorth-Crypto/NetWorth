@@ -13,13 +13,13 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false)
+    @Column()
     private String title;
 
     @Column
     private String imgUrl;
 
-    @Column(nullable = false, length = 1000)
+    @Column(length = 1000)
     private String description;
 
     @Column

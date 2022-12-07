@@ -19,8 +19,6 @@ public class Asset {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private double purchasePrice;
 
     @Column(nullable = false)
     private double currentPrice;
@@ -28,10 +26,9 @@ public class Asset {
     public Asset() {
     }
 
-    public Asset(String ticker, String name, double purchasePrice, double currentPrice) {
+    public Asset(String ticker, String name,  double currentPrice) {
         this.ticker = ticker;
         this.name = name;
-        this.purchasePrice = purchasePrice;
         this.currentPrice = currentPrice;
     }
 
@@ -66,14 +63,6 @@ public class Asset {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public double getPurchasePrice() {
-        return purchasePrice;
-    }
-
-    public void setPurchasePrice(double purchasePrice) {
-        this.purchasePrice = purchasePrice;
     }
 
     public double getCurrentPrice() {
