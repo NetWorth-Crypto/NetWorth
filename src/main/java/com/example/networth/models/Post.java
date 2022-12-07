@@ -23,13 +23,15 @@ public class Post {
     private String description;
 
     @Column
-    private int likes;
+    private int likes = 0;
 
     @Column
-    private int dislikes;
+    private int dislikes = 0;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<Comment> comments;
+
+
 
     public Post() {
     }
