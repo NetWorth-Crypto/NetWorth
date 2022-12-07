@@ -45,10 +45,13 @@ public class UserController {
 
     @GetMapping("/userFinance")
     public String userFinancePage(Model model){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user",user);
+        User user = new User();
+        if(user == null){
+            return "redirect:/login";
+        }
+        model.addAttribute("user",user.getFirstName());
         System.out.println("reached");
-        return "users/sign-up";
+        return "users/userFinance";
     }
 
 
