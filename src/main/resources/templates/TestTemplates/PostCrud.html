@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+    <form th:action="@{/testpost}" th:method="post" th:object="${post}">
+        <input th:field="*{title}"  placeholder="Title">
+        <input th:field="*{description}" placeholder="Description">
+        <button type="submit">share</button>
+    </form>
+
+    <form>
+        <button name="like" type="submit">Like</button>
+    </form>
+
+    <form>
+        <button name="dislike" type="submit">dislike</button>
+    </form>
+
+</body>
+</html>
