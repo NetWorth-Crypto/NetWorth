@@ -43,16 +43,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/userFinance")
-    public String userFinancePage(Model model){
-        User user = new User();
-        if(user == null){
-            return "redirect:/login";
-        }
-        model.addAttribute("user",user.getFirstName());
-        System.out.println("reached");
-        return "users/userFinance";
-    }
+
 
 
 
