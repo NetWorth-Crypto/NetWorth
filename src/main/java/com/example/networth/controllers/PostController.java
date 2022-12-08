@@ -1,5 +1,6 @@
 package com.example.networth.controllers;
 
+
 import com.example.networth.models.Post;
 import com.example.networth.models.User;
 import com.example.networth.repositories.PostRepository;
@@ -20,6 +21,17 @@ public class PostController {
     public PostController(PostRepository postDao, UserRepository userDao){
         this.postDao = postDao;
         this.userDao = userDao;
+    }
+    
+        @GetMapping("/search")
+    public String getSearch()
+    {
+        return "post/search";
+    }
+    @PostMapping("/search")
+    public String postSearch(@RequestParam(value = "searchValue")String searchValue) {
+        System.out.println(searchValue);
+        return "redirect:profile";
     }
 
     @GetMapping("/testpost")
