@@ -33,6 +33,7 @@ public class PostController {
         System.out.println(searchValue);
         return "redirect:profile";
     }
+
     @GetMapping("/testpost")
     public String testPost(Model model){
         Post post = postDao.getReferenceById(3L);
