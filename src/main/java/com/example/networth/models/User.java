@@ -35,8 +35,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Following> followings;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user",orphanRemoval = true)
     private List<Portfolio> portfolios;
+
 
 
 

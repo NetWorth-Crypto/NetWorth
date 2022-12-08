@@ -14,16 +14,16 @@ insert into portfolio(name,dollar_limit,is_default,is_private,user_id)
 values ('portfolio1',1000, true, false, 1),
        ('portfolio2',1000,true, false,2);
 
-insert into asset(name,ticker,current_price,purchase_price)
-values ('Bitcoin','BTC',19000,23000),
-       ('Ethereum','ETH',1200, 1800);
+insert into asset(name,ticker,current_price)
+values ('Bitcoin','BTC',19000),
+       ('Ethereum','ETH',1200);
 
-insert into portfolio_asset(portfolio_id, asset_id, quantity)
-values (1,1,1.2),(1,2,2.2),(2,1,.8),(2,2,4);
+insert into portfolio_asset(portfolio_id, asset_id, quantity,purchase_price,purchase_date)
+values (1,1,1.2,23000,CURRENT_DATE),(1,2,2.2,1200,CURRENT_DATE),(2,1,.8,17000,CURRENT_DATE),(2,2,4,1600,CURRENT_DATE);
 
-insert into post(title,description,user_id)
-values ('Anthony\'s first post','Creating the next big thing', 1),
-       ('Cas\'s first post', 'Jp makes the world go around',2);
+insert into post(title,description,user_id,likes,dislikes)
+values ('Anthony\'s first post','Creating the next big thing', 1,0,0),
+       ('Cas\'s first post', 'Jp makes the world go around',2,0,0);
 
 insert into comment(comment,posting_user_id, post_id)
 values ('I 100% agree!',1,2),
