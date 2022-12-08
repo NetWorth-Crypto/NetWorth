@@ -29,10 +29,10 @@ public class PostController {
         return "post/search";
     }
     @PostMapping("/search")
-    public String postSearch(@RequestParam(value = "searchValue")String searchValue)
-    {
+    public String postSearch(@RequestParam(value = "searchValue")String searchValue) {
         System.out.println(searchValue);
         return "redirect:profile";
+    }
 
     @GetMapping("/testpost")
     public String testPost(Model model){
