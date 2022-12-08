@@ -1,6 +1,7 @@
 package com.example.networth.models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class PortfolioAsset {
@@ -18,6 +19,13 @@ public class PortfolioAsset {
 
     @Column(nullable = false)
     double quantity;
+
+    @Column(nullable = false)
+    double purchasePrice;
+
+    @Temporal(value = TemporalType.DATE)
+    @Column(nullable = false)
+    Date purchase_date;
 
     public PortfolioAsset() {
     }

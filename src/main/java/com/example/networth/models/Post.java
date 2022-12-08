@@ -13,23 +13,25 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false)
+    @Column()
     private String title;
 
     @Column
     private String imgUrl;
 
-    @Column(nullable = false, length = 1000)
+    @Column(length = 1000)
     private String description;
 
     @Column
-    private int likes;
+    private int likes = 0;
 
     @Column
-    private int dislikes;
+    private int dislikes = 0;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<Comment> comments;
+
+
 
     public Post() {
     }
