@@ -51,30 +51,30 @@ public class PostController {
         return "TestTemplates/PostCrud";
     }
 
-    @PostMapping("/like/testpost")
-    public String likeTestPost(@ModelAttribute Post post){
-        Post likedPost = postDao.getReferenceById(post.getId());
+//    @PostMapping("/like/testpost")
+//    public String likeTestPost(@ModelAttribute Post post){
+//        Post likedPost = postDao.getReferenceById(post.getId());
+//
+//        int likes = likedPost.getLikes()+1;
+//        likedPost.setLikes(likes);
+//        System.out.println(likedPost.getLikes());
+//
+//
+//        postDao.save(likedPost);
+//
+//        return "TestTemplates/PostCrud";
+//    }
 
-        int likes = likedPost.getLikes()+1;
-        likedPost.setLikes(likes);
-        System.out.println(likedPost.getLikes());
-
-
-        postDao.save(likedPost);
-
-        return "TestTemplates/PostCrud";
-    }
-
-    @PostMapping("/dislike/testpost")
-    public String dislikeTestPost(@ModelAttribute Post post){
-        Post dislikedPost = postDao.getReferenceById(post.getId());
-
-        int dislikes = dislikedPost.getDislikes()+1;
-        dislikedPost.setDislikes(dislikes);
-        System.out.println(dislikedPost.getLikes());
-
-        postDao.save(dislikedPost);
-
-        return "TestTemplates/PostCrud";
-    }
+//    @PostMapping("/dislike/testpost")
+//    public String dislikeTestPost(@ModelAttribute Post post){
+//        Post dislikedPost = postDao.getReferenceById(post.getId());
+//
+//        int dislikes = dislikedPost.getDislikes()+1;
+//        dislikedPost.setDislikes(dislikes);
+//        System.out.println(dislikedPost.getLikes());
+//
+//        postDao.save(dislikedPost);
+//
+//        return "TestTemplates/PostCrud";
+//    }
 }

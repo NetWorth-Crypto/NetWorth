@@ -22,16 +22,14 @@ public class Post {
     @Column(length = 1000)
     private String description;
 
-    @Column
-    private int likes = 0;
-
-    @Column
-    private int dislikes = 0;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<Comment> comments;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<PostLike> likes;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<PostDislike> dislikes;
 
     public Post() {
     }
@@ -82,19 +80,19 @@ public class Post {
         this.description = description;
     }
 
-    public int getLikes() {
+    public List<PostLike> getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(List<PostLike> likes) {
         this.likes = likes;
     }
 
-    public int getDislikes() {
+    public List<PostDislike> getDislikes() {
         return dislikes;
     }
 
-    public void setDislikes(int dislikes) {
+    public void setDislikes(List<PostDislike> dislikes) {
         this.dislikes = dislikes;
     }
 
@@ -105,4 +103,6 @@ public class Post {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+
 }
