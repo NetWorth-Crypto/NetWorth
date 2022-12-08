@@ -20,7 +20,7 @@ public class Comment {
     @Column(length = 2500)
     String imgUrl;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 3000)
     String comment;
 
     public Comment() {

@@ -35,8 +35,14 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Following> followings;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user",orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",orphanRemoval = true)
     private List<Portfolio> portfolios;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<PostLike> likes;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<PostDislike> dislikes;
 
 
 
@@ -136,5 +142,37 @@ public class User {
 
     public void setFollowers(List<Follower> followers) {
         this.followers = followers;
+    }
+
+    public List<Following> getFollowings() {
+        return followings;
+    }
+
+    public void setFollowings(List<Following> followings) {
+        this.followings = followings;
+    }
+
+    public List<Portfolio> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(List<Portfolio> portfolios) {
+        this.portfolios = portfolios;
+    }
+
+    public List<PostLike> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<PostLike> likes) {
+        this.likes = likes;
+    }
+
+    public List<PostDislike> getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(List<PostDislike> dislikes) {
+        this.dislikes = dislikes;
     }
 }

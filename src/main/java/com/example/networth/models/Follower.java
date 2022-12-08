@@ -1,7 +1,7 @@
 package com.example.networth.models;
 
-import javax.persistence.*;
 
+import javax.persistence.*;
 @Entity
 public class Follower{
     @Id
