@@ -8,6 +8,7 @@
     <form th:action="@{/create/testpost}" th:method="post" th:object="${post}">
         <input th:field="*{title}"  placeholder="Title">
         <input th:field="*{description}" placeholder="Description">
+        <input id="imgurl" type="text" name="imgUrl" hidden value="none">
         <button type="submit">share</button>
     </form>
 
@@ -26,5 +27,8 @@
         <button type="submit">submit</button>
     </form>
 
+    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+    <script src="js/filepickerAPI.js"></script>
+    <script src="js/filepicker.js" ></script>
 </body>
 </html>
