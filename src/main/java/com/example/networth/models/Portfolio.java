@@ -1,5 +1,7 @@
 package com.example.networth.models;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class Portfolio {
 
     public Portfolio() {
     }
+
+
 
     public long getId() {
         return id;
@@ -63,13 +67,13 @@ public class Portfolio {
         isDefault = aDefault;
     }
 
-//    public double getLimit() {
-//        return limit;
-//    }
-//
-//    public void setLimit(double limit) {
-//        this.limit = limit;
-//    }
+    public double getDollarLimit() {
+        return dollarLimit;
+   }
+
+    public void setDollarLimit(double dollarLimit) {
+       this.dollarLimit = dollarLimit;
+   }
 
     public boolean isPrivate() {
         return isPrivate;
