@@ -1,8 +1,13 @@
 package com.example.networth.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 public class Post {
     @Id
@@ -22,15 +27,16 @@ public class Post {
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post",orphanRemoval = true)
     private List<Comment> comments;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)
     private List<PostLike> likes;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)
     private List<PostDislike> dislikes;
 
+    //Constructors
     public Post() {
     }
 
@@ -40,69 +46,29 @@ public class Post {
         this.description = description;
     }
 
-    public long getId() {
-        return id;
+
+    //Add and Remove PostLike objects
+    public void addLike(PostLike postLike){
+        this.likes.add(postLike);
+        postLike.setPost(this);
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void removeLike(PostLike postLike){
+        this.likes.remove(postLike);
+        postLike.setPost(null);
     }
 
-    public User getUser() {
-        return user;
+    //Add and Remove PostDisLike objects
+    public void addDislike(PostDislike postDisLike){
+        this.dislikes.add(postDisLike);
+        postDisLike.setPost(this);
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void removeDislike(PostDislike postDisLike){
+        this.dislikes.remove(postDisLike);
+        postDisLike.setPost(null);
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<PostLike> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<PostLike> likes) {
-        this.likes = likes;
-    }
-
-    public List<PostDislike> getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(List<PostDislike> dislikes) {
-        this.dislikes = dislikes;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 
 
 }

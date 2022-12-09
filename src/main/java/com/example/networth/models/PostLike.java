@@ -1,7 +1,12 @@
 package com.example.networth.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 public class PostLike {
 
@@ -17,30 +22,13 @@ public class PostLike {
     @JoinColumn(name = "post_id")
     Post post;
 
+    //Constructors
     public PostLike() {
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
+    public PostLike(User user, Post post) {
         this.user = user;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
         this.post = post;
     }
+
 }

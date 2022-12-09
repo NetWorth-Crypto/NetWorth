@@ -1,8 +1,13 @@
 package com.example.networth.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 public class User {
     @Id
@@ -29,25 +34,22 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Follower> followers;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Following> followings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",orphanRemoval = true)
     private List<Portfolio> portfolios;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<PostLike> likes;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<PostDislike> dislikes;
 
-
-
-
-
+    //Constructors
     public User() {
     }
 
@@ -80,99 +82,26 @@ public class User {
 
     }
 
-    public long getId() {
-        return id;
+    //Add and Remove PostLike objects
+    public void addLike(PostLike postLike){
+        this.likes.add(postLike);
+        postLike.setUser(this);
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void removeLike(PostLike postLike){
+        this.likes.remove(postLike);
+        postLike.setUser(null);
     }
 
-    public Role getRole() {
-        return role;
+    //Add and Remove PostDisLike objects
+    public void addDislike(PostDislike postDisLike){
+        this.dislikes.add(postDisLike);
+        postDisLike.setUser(this);
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void removeDislike(PostDislike postDisLike){
+        this.dislikes.remove(postDisLike);
+        postDisLike.setPost(null);
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public List<Follower> getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(List<Follower> followers) {
-        this.followers = followers;
-    }
-
-    public List<Following> getFollowings() {
-        return followings;
-    }
-
-    public void setFollowings(List<Following> followings) {
-        this.followings = followings;
-    }
-
-    public List<Portfolio> getPortfolios() {
-        return portfolios;
-    }
-
-    public void setPortfolios(List<Portfolio> portfolios) {
-        this.portfolios = portfolios;
-    }
-
-    public List<PostLike> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<PostLike> likes) {
-        this.likes = likes;
-    }
-
-    public List<PostDislike> getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(List<PostDislike> dislikes) {
-        this.dislikes = dislikes;
-    }
 }

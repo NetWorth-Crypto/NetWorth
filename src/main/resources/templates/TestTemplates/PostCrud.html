@@ -5,21 +5,23 @@
     <title></title>
 </head>
 <body>
+
+<!--This form will submit to create/edit a post -->
     <form th:action="@{/create/testpost}" th:method="post" th:object="${post}">
         <input th:field="*{title}"  placeholder="Title">
         <input th:field="*{description}" placeholder="Description">
         <input id="imgurl" type="text" name="imgUrl" hidden value="none">
         <button type="submit">share</button>
     </form>
-
+<!--This for increment/decrement a like for a user-->
     <form th:action="@{/like/testpost}" th:method="post" th:object="${post}">
         <input hidden th:field="*{id}">
-        <button name="like" type="submit">Like</button>
+        <button  type="submit">Like</button>
     </form>
-
+<!--This for increment/decrement a dislike for a user-->
     <form th:action="@{/dislike/testpost}" th:method="post" th:object="${post}">
         <input hidden th:field="*{id}">
-        <button name="dislike" type="submit">dislike</button>
+        <button type="submit">dislike</button>
     </form>
 
     <form th:action="@{/postpost}" th:method="post">
@@ -27,6 +29,8 @@
         <button type="submit">submit</button>
     </form>
 
+
+<!--    Javascript files for image upload-->
     <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
     <script src="js/filepickerAPI.js"></script>
     <script src="js/filepicker.js" ></script>
