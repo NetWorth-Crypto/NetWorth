@@ -10,6 +10,7 @@ import com.example.networth.repositories.PostLikeRepository;
 import com.example.networth.repositories.PostRepository;
 import com.example.networth.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,23 +50,29 @@ public class PostController {
 
     @GetMapping("/testpost")
     public String testPost(Model model){
-        Post post = postDao.getReferenceById(1L);
-        model.addAttribute("post", post);
+        model.addAttribute("post", new Post());
         return "TestTemplates/PostCrud";
     }
 
+
     @PostMapping("/create/testpost")
     public String testPost1(@ModelAttribute("post") Post post,
-                            @RequestParam("imgUrl") String imgUrl){
+                            @RequestParam("imgUrl") String imgUrl,
+                            @RequestParam("videoUrl") String videoUrl){
         //Get UserId from logged-in user to create new post
+        User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //Create new post
+        post.setUser(user);
+        post.setImgUrl(imgUrl);
+        post.setVideoUrl(videoUrl);
         //Save new post to database
 
-        System.out.println(post.getTitle());
-        System.out.println(post.getDescription());
-        System.out.println(imgUrl);
+//        System.out.println(post.getTitle());
+//        System.out.println(post.getDescription());
+//        System.out.println(imgUrl);
+//        System.out.println(videoUrl);
 
-//        postDao.save(post);
+        postDao.save(post);
         return "TestTemplates/PostCrud";
     }
 
