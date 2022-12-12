@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title></title>
+    <link href="">
 </head>
 <body>
 
@@ -11,6 +12,9 @@
         <input th:field="*{title}"  placeholder="Title">
         <input th:field="*{description}" placeholder="Description">
         <input id="imgurl" type="text" name="imgUrl" hidden value="none">
+        <input id="videourl" type="text" name="videoUrl" hidden value="none">
+        <button id="imageButton" type="button">picture</button>
+        <button id="videoButton" type="button">video</button>
         <button type="submit">share</button>
     </form>
 <!--This for increment/decrement a like for a user-->
@@ -29,6 +33,9 @@
         <button type="submit">submit</button>
     </form>
 
+<video width="320" height="240" controls>
+    <source src="https://cdn.filestackcontent.com/QoTV8rKtQLSyluIyi3CB" type="video/mp4">
+</video>
 
 <!--    Javascript files for image upload-->
     <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
