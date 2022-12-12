@@ -2,9 +2,14 @@ package com.example.networth.controllers;
 
 
 import com.example.networth.models.Post;
+import com.example.networth.models.PostDislike;
+import com.example.networth.models.PostLike;
 import com.example.networth.models.User;
+import com.example.networth.repositories.PostDislikeRepository;
+import com.example.networth.repositories.PostLikeRepository;
 import com.example.networth.repositories.PostRepository;
 import com.example.networth.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +18,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class PostController {
+    @Autowired
     private PostRepository postDao;
+
+    @Autowired
     private UserRepository userDao;
+
+    @Autowired
+    private PostLikeRepository postLikeDao;
+
+    @Autowired
+    private PostDislikeRepository postDislikeDao;
 
 
     
@@ -33,8 +49,8 @@ public class PostController {
 
     @GetMapping("/testpost")
     public String testPost(Model model){
-//        Post post = postDao.getReferenceById(3L);
-        model.addAttribute("post", new Post());
+        Post post = postDao.getReferenceById(1L);
+        model.addAttribute("post", post);
         return "TestTemplates/PostCrud";
     }
 
@@ -53,30 +69,69 @@ public class PostController {
         return "TestTemplates/PostCrud";
     }
 
-//    @PostMapping("/like/testpost")
-//    public String likeTestPost(@ModelAttribute Post post){
-//        Post likedPost = postDao.getReferenceById(post.getId());
-//
-//        int likes = likedPost.getLikes()+1;
-//        likedPost.setLikes(likes);
-//        System.out.println(likedPost.getLikes());
-//
-//
-//        postDao.save(likedPost);
-//
-//        return "TestTemplates/PostCrud";
-//    }
+    @PostMapping("/like/testpost")
+    public String likeTestPost(@ModelAttribute Post post){
 
-//    @PostMapping("/dislike/testpost")
-//    public String dislikeTestPost(@ModelAttribute Post post){
-//        Post dislikedPost = postDao.getReferenceById(post.getId());
-//
-//        int dislikes = dislikedPost.getDislikes()+1;
-//        dislikedPost.setDislikes(dislikes);
-//        System.out.println(dislikedPost.getLikes());
-//
-//        postDao.save(dislikedPost);
-//
-//        return "TestTemplates/PostCrud";
-//    }
+        Post likedPost = postDao.getReferenceById(post.getId());
+
+        /*Change this to the actual logged in user*/
+        User user = userDao.getReferenceById(1L);
+
+        List<PostLike> userLikes = user.getLikes();
+
+        //Check user already like the post
+        for(PostLike like: userLikes){
+            if(like.getPost().getId() == likedPost.getId()){
+
+                //remove from PostLike table
+                user.removeLike(like);
+                likedPost.removeLike(like);
+                postLikeDao.delete(like);
+                System.out.println("like removed");
+                //return to page
+                return "TestTemplates/PostCrud";
+            }
+        }
+
+        PostLike postLike = new PostLike(user,likedPost);
+        user.addLike(postLike);
+        likedPost.addLike(postLike);
+        postLikeDao.save(postLike);
+        System.out.println("like added");
+
+
+        return "TestTemplates/PostCrud";
+    }
+
+    @PostMapping("/dislike/testpost")
+    public String dislikeTestPost(@ModelAttribute Post post){
+        Post dislikedPost = postDao.getReferenceById(post.getId());
+
+        /*Change this to the actual logged in user*/
+        User user = userDao.getReferenceById(1L);
+
+        List<PostDislike> userDislikes = user.getDislikes();
+
+        //Check user already like the post
+        for(PostDislike dislike: userDislikes){
+            if(dislike.getPost().getId() == dislikedPost.getId()){
+
+                //remove from PostDislike table
+                user.removeDislike(dislike);
+                dislikedPost.removeDislike(dislike);
+                postDislikeDao.delete(dislike);
+                System.out.println("dislike removed");
+                //return to page
+                return "TestTemplates/PostCrud";
+            }
+        }
+
+        PostDislike postDislike = new PostDislike(user,dislikedPost);
+        user.addDislike(postDislike);
+        dislikedPost.addDislike(postDislike);
+        postDislikeDao.save(postDislike);
+        System.out.println("dislike added");
+
+        return "TestTemplates/PostCrud";
+    }
 }
