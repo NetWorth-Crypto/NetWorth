@@ -1,7 +1,12 @@
 package com.example.networth.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 public class PostDislike {
 
@@ -20,27 +25,8 @@ public class PostDislike {
     public PostDislike() {
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
+    public PostDislike(User user, Post post) {
         this.user = user;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
         this.post = post;
     }
 }
