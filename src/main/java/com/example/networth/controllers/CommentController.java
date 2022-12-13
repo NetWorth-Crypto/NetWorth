@@ -53,12 +53,25 @@ public class CommentController {
 
     /* Edit Comment */
     @GetMapping("/comments/{id}/editComment")
-    public String editComment(@PathVariable long id, Model model)
+    public String getEditComment(@PathVariable long id, Model model)
     {
-        model.addAttribute("comment", commentDao.getReferenceById(id));
+        model.addAttribute("editComment", commentDao.getReferenceById(id));
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        commentDao.save();
 
         return "comments/editComment";
+    }
+
+    @PostMapping("/comments/{id}/editComment")
+    public String postEditComment(@ModelAttribute Comment comment)
+    {
+        System.out.println(comment.toString());
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println(comment.getId());
+//        System.out.println(comment.getPost());
+//        System.out.println(comment.getPostingUserId());
+//        comment.setPostingUserId(1);
+//        commentDao.save(comment);
+
+        return "redirect:/comments/" + comment.getId();
     }
 }

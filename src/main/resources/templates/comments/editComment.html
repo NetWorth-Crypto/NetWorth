@@ -9,20 +9,24 @@
 </head>
 <body>
 
-<div th:action="@{/comments/editComment}" th:method="POST" class="modal" tabindex="-1" role="dialog">
+<form th:action="@{/comments/{id}/editComment(id=${editComment.id})}" th:object="${editComment}" th:method="POST" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 th:text="${comment.id}" class="modal-title"></h5>
+                <input type="hidden" th:field="*{id}" name="id">
+                <input type="hidden" th:field="*{postingUserId}" name="postingUserId">
+                <input type="hidden" th:field="*{post}" name="post">
             </div>
             <div class="modal-body">
-                <textarea th:text="${comment.comment}" name="" id="" cols="30" rows="10"></textarea>
+                <textarea th:field="*{comment}" name="comment" id="" cols="30" rows="10"></textarea>
             </div>
-            <form th:action="@{/comments/readComment}" class="modal-footer">
+            <div class="modal-footer">
                 <button type="submit" class="btn btn-secondary" data-dismiss="modal">Save</button>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+</form>
+
+
 </body>
 </html>
