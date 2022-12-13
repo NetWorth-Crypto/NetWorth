@@ -13,10 +13,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 th:text="${Comment.postingUserId}" class="modal-title"></h5>
+                <h5 th:text="${comment.id}" class="modal-title"></h5>
             </div>
             <div class="modal-body">
-                <textarea th:text="${Comment.comment}" name="" id="" cols="30" rows="10"></textarea>
+                <textarea th:text="${comment.comment}" name="" id="" cols="30" rows="10"></textarea>
             </div>
             <form th:action="@{/comments/readComment}" class="modal-footer">
                 <button type="submit" class="btn btn-secondary" data-dismiss="modal">Save</button>

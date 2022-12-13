@@ -6,12 +6,12 @@
 </head>
 <body>
 <!-- Comment Card Temp -->
-<div th:action="@{/comments/readComment}" th:method="post" class="card" style="width: 18rem;">
+<div class="card" style="width: 18rem;">
     <img class="card-img-top" src="..." alt="Card image cap">
     <div class="card-body">
-        <h5 th:text="${Comment.postingUserId}" class="card-title"></h5>
-        <p th:text="${Comment.comment}" class="card-text"></p>
-        <a th:href="@{/comments/editComment}" class="btn btn-primary">Edit</a>
+        <h5 th:text="${comment.postingUserId}" class="card-title"></h5>
+        <p th:text="${comment.comment}" class="card-text"></p>
+        <a th:href="@{/comments/{id}/editComment(id=${comment.id})}" class="btn btn-primary">Edit</a>
         <form th:action="@{/comments/deleteComment}" method="POST">
             <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</button>
         </form>
