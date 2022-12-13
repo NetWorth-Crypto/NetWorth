@@ -24,6 +24,9 @@ public class Post {
     @Column
     private String imgUrl;
 
+    @Column
+    private String videoUrl;
+
     @Column(length = 1000)
     private String description;
 
@@ -40,11 +43,13 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String imgUrl, String description) {
+    public Post(String title, String imgUrl, String videoUrl,String description) {
         this.title = title;
         this.imgUrl = imgUrl;
         this.description = description;
+        this.videoUrl = videoUrl;
     }
+
 
 
     //Add and Remove PostLike objects
