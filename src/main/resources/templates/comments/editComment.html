@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>CommentCrudTest</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div th:action="@{/comments/editComment}" th:method="POST" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 th:text="${Comment.postingUserId}" class="modal-title"></h5>
+            </div>
+            <div class="modal-body">
+                <textarea th:text="${Comment.comment}" name="" id="" cols="30" rows="10"></textarea>
+            </div>
+            <form th:action="@{/comments/readComment}" class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
