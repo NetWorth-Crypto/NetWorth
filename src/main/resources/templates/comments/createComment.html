@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form th:action="@{/TestCommentCrud/CommentCrud}" th:method="post" th:object="${Comment}">
+<form th:action="@{/comments/createComment}" th:method="post" th:object="${Comment}">
     <div class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -17,6 +17,7 @@
                     <h4 class="modal-title"><strong>Comment</strong></h4>
                 </div>
                 <div class="modal-body">
+                    <h4 th:field="*{postingUserId}"></h4>
                     <textarea th:field="*{comment}" name="commentSection" id="commentSection" cols="30" rows="5"></textarea>
                 </div>
                 <div class="modal-footer">
