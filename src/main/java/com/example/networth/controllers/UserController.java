@@ -38,15 +38,8 @@ public class UserController {
         user.setPassword(hash);
         userService.saveUser(user);
 
-
         return "redirect:/login";
     }
-
-
-
-
-
-
 
 
 
