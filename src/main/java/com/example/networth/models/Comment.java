@@ -26,6 +26,18 @@ public class Comment {
     public Comment() {
     }
 
+    public Comment(long id, Post post, long postingUserId, String imgUrl, String comment) {
+        this.id = id;
+        this.post = post;
+        this.postingUserId = postingUserId;
+        this.imgUrl = imgUrl;
+        this.comment = comment;
+    }
+
+    public Comment(String comment) {
+        this.comment = comment;
+    }
+
     public long getId() {
         return id;
     }
