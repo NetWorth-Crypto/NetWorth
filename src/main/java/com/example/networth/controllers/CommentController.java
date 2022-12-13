@@ -12,26 +12,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class CommentController
-{
+public class CommentController {
 
     private CommentRepository commentDao;
 
-    public CommentController(CommentRepository commentDao)
-    {
+    public CommentController(CommentRepository commentDao) {
         this.commentDao = commentDao;
     }
 
+    /* Create Comment */
     @GetMapping("/createComment")
-    public String showCommentForm (Model model)
-    {
+    public String showCommentForm(Model model) {
         model.addAttribute("Comment", new Comment());
         return "comments/createComment";
     }
 
     @PostMapping("comments/createComment")
-    public String submitComment(@ModelAttribute("submitComment") Comment comment, Model model)
-    {
+    public String submitComment(@ModelAttribute("submitComment") Comment comment, Model model) {
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        comment.setComment("comment");
 
@@ -40,18 +37,28 @@ public class CommentController
         return "comments/createComment";
     }
 
-    @GetMapping("/comments/editComment")
-    public String editComment(@PathVariable long postingUserId, Model model)
-    {
-        return "comments/editComment";
+    /* Read Comment */
+    @GetMapping("/comments/{id}")
+    public String showComment(@PathVariable long id, Model model) {
+        model.addAttribute("comment", commentDao.getReferenceById(id));
+        return "comments/readComment";
     }
 
-    @PostMapping("/comments/editComment")
-    public String editComment(@ModelAttribute Model model)
-    {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    /* Delete Comment */
+    @PostMapping("/comments/{id}/delete")
+    public String deleteComment(@PathVariable long id) {
+        commentDao.delete(commentDao.getReferenceById(id));
+        return "redirect:/comments";
+    }
 
+    /* Edit Comment */
+    @GetMapping("/comments/{id}/editComment")
+    public String editComment(@PathVariable long id, Model model)
+    {
+        model.addAttribute("comment", commentDao.getReferenceById(id));
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        commentDao.save();
-        return "redirect:/readComment";
+
+        return "comments/editComment";
     }
 }
