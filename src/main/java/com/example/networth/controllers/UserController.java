@@ -2,7 +2,6 @@ package com.example.networth.controllers;
 
 import com.example.networth.models.User;
 import com.example.networth.services.UserService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
