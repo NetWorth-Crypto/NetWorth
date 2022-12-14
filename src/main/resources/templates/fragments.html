@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 
+<!-- Header -->
 <div th:fragment="myheader">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,19 +17,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-
-
 </div>
 
+<!-- CSS -->
 <div th:fragment="css">
     <link th:href="@{/css/main.css}" rel="stylesheet">
 </div>
 
+<!-- Navbar -->
 <div th:fragment="navbar">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          
+
             <a class="navbar-brand" href="/">
 
                 <img th:src="@{/images/logo.png}"/>
@@ -71,11 +72,9 @@
             </div>
         </div>
     </nav>
-
-
 </div>
 
-
+<!-- Landing Navbar -->
 <div th:fragment="landing-navbar">
 
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -95,20 +94,26 @@
                     <li class="nav-item">
                         <a class="nav-link" href="about">About</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile">Profile</a>
+                    </li>
+
+
                     <li class="nav-item">
                         <a class="nav-link" th:href="crypto">Crypto</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" th:href="userFinance">Portfolio</a>
+
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href=""></a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="feed">Your Network</a>
                     </li>
                 </ul>
+
                 <div class="d-flex">
                     <ul class="me-auto my-2 my-lg-0 navbar-nav">
                         <li class="nav-item">
@@ -123,16 +128,59 @@
             </div>
         </div>
 
-</nav>
-
-
+    </nav>
 </div>
 
+<!-- Profile Navbar -->
+<div th:fragment="profile-navbar">
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
 
 
+            <a class="navbar-brand" href="/">
+                <img th:src="@{/images/logo.png}"/>
+            </a>
 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll3"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll3">
+                <ul class=" me-auto my-2 my-lg-0 navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile">Profile</a>
+                    </li>
 
+                    <li class="nav-item">
 
+                        <a class="nav-link" th:href="userFinance">Portfolio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="feed">Your Network</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex">
+                    <ul sec:authorize="isAuthenticated()" class="me-auto my-2 my-lg-0 navbar-nav">
+                        <li class="nav-item">
+                            <form th:action="@{/logout}" method="POST">
+                                <button class="btn btn primary" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+</div>
+
+<!-- Portfolio Navbar -->
 <div th:fragment="portfolio-navbar">
 
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -143,13 +191,12 @@
                 <img th:src="@{/images/logo.png}"/>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll2"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll4"
                     aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarScroll2">
+            <div class="collapse navbar-collapse" id="navbarScroll4">
                 <ul class=" me-auto my-2 my-lg-0 navbar-nav">
-
 
 
                     <li class="nav-item">
@@ -182,9 +229,6 @@
 
 
 </div>
-
-
-
 
 
 <div th:fragment="crypto-navbar">
@@ -241,18 +285,15 @@
 
 
 
-
-
-
 <div th:fragment="jsFile">
 
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous">
+    </script>
 
 </div>
-
 
 </body>
 </html>

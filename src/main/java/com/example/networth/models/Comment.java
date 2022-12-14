@@ -20,10 +20,22 @@ public class Comment {
     @Column(length = 2500)
     String imgUrl;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 3000)
     String comment;
 
     public Comment() {
+    }
+
+    public Comment(long id, Post post, long postingUserId, String imgUrl, String comment) {
+        this.id = id;
+        this.post = post;
+        this.postingUserId = postingUserId;
+        this.imgUrl = imgUrl;
+        this.comment = comment;
+    }
+
+    public Comment(String comment) {
+        this.comment = comment;
     }
 
     public long getId() {
