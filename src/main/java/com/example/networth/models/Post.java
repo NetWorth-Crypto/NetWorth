@@ -1,8 +1,14 @@
 package com.example.networth.models;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+//import org
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 public class Post {
     @Id
@@ -10,6 +16,7 @@ public class Post {
     private long id;
 
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -19,90 +26,56 @@ public class Post {
     @Column
     private String imgUrl;
 
+    @Column
+    private String videoUrl;
+
     @Column(length = 1000)
     private String description;
 
-    @Column
-    private int likes = 0;
-
-    @Column
-    private int dislikes = 0;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post",orphanRemoval = true)
     private List<Comment> comments;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)
+    private List<PostLike> likes;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)
+    private List<PostDislike> dislikes;
 
+    //Constructors
     public Post() {
     }
 
-    public Post(String title, String imgUrl, String description) {
+    public Post(String title, String imgUrl, String videoUrl,String description) {
         this.title = title;
         this.imgUrl = imgUrl;
         this.description = description;
+        this.videoUrl = videoUrl;
     }
 
-    public long getId() {
-        return id;
+
+
+    //Add and Remove PostLike objects
+    public void addLike(PostLike postLike){
+        this.likes.add(postLike);
+        postLike.setPost(this);
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void removeLike(PostLike postLike){
+        this.likes.remove(postLike);
+        postLike.setPost(null);
     }
 
-    public User getUser() {
-        return user;
+    //Add and Remove PostDisLike objects
+    public void addDislike(PostDislike postDisLike){
+        this.dislikes.add(postDisLike);
+        postDisLike.setPost(this);
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void removeDislike(PostDislike postDisLike){
+        this.dislikes.remove(postDisLike);
+        postDisLike.setPost(null);
     }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public int getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 }
