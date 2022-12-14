@@ -39,11 +39,12 @@ public class CrytoController {
     public String getCrypto(){
         return "crypto";
     }
-    boolean isLogin = SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser" || SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null;
 
     @GetMapping(path = "/addCrypto/{price}/{name}/{ticker}")
     public String addCrypto(@PathVariable String name,@PathVariable String ticker,@PathVariable float price, Model model){
-if(!isLogin){
+
+        boolean isLogin = SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser" || SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null;
+        if(!isLogin){
     model.addAttribute("login", "login To access Portfolio");
     return "users/login";}
         System.out.println(price);

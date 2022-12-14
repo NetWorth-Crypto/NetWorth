@@ -27,11 +27,11 @@ public class UserFinancePortfolioCtl {
         this.portAssetDao = portAssetDao;
     }
 
-    boolean isLogin = SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser";
 
     @GetMapping("/userFinance")
     public String userFinancePage(Model model) {
 
+        boolean isLogin = SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser" || SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null;
 
         if (!isLogin) {
             model.addAttribute("login","login to continue");
