@@ -60,12 +60,15 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
+"/addAsset",
 
                         "/posts/create", // only authenticated users can create ads
                         "/posts/{id}/edit" // only authenticated users can edit ads
                 )
                 .authenticated()
         ;
+
+
         return http.build();
     }
 
