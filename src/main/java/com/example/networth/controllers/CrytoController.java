@@ -65,7 +65,6 @@ if(portfolios.isEmpty()){
    return "createPortfolio";
 }
 
-
         return "/addAsset";
     }
 
@@ -90,10 +89,10 @@ Portfolio newPortfolio = portfolioService.findByName(portfolio);
            Date date = new Date();
            pAservice.addpAsset(new PortfolioAsset(portfolio1, asset, quantity, price, date));
 
-           return "redirect:/userFinance";
+           return "users/userFinance";
        }else {
           model.addAttribute("red","Ticker already Exist in Portfolio");
-           return "addAsset";
+           return "crypto";
        }
 
     }
