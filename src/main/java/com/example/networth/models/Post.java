@@ -2,7 +2,8 @@ package com.example.networth.models;
 
 import lombok.Getter;
 import lombok.Setter;
-
+import org.hibernate.annotations.Cascade;
+//import org
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Post {
     private long id;
 
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "user_id")
     private User user;
 

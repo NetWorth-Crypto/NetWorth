@@ -11,7 +11,6 @@ import com.example.networth.repositories.PostRepository;
 import com.example.networth.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -48,32 +48,53 @@ public class PostController {
         return "redirect:profile";
     }
 
-    @GetMapping("/testpost")
+    @GetMapping("/createpost")
     public String testPost(Model model){
         model.addAttribute("post", new Post());
-        return "TestTemplates/PostCrud";
+        return "TestTemplates/CreatePost";
+    }
+
+    @GetMapping("/posts")
+    public String userPost(Model model){
+        //Get All Post
+        List<Post> posts = postDao.findAll();
+        Collections.reverse(posts);
+
+//        User user = userDao.getReferenceById(1l);
+//        Post post = postDao.getReferenceById(1l);
+
+//        model.addAttribute("user",user);
+//        model.addAttribute("post",post);
+        model.addAttribute("posts",posts);
+        model.addAttribute("newPost",new Post());
+
+        return "feed";
     }
 
 
-    @PostMapping("/create/testpost")
-    public String testPost1(@ModelAttribute("post") Post post,
+    @PostMapping("/posts/create")
+    public String testPost1(@ModelAttribute("newPost") Post newPost,
                             @RequestParam("imgUrl") String imgUrl,
                             @RequestParam("videoUrl") String videoUrl){
         //Get UserId from logged-in user to create new post
         User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = userDao.getReferenceById(loggedinUser.getId());
         //Create new post
-        post.setUser(user);
-        post.setImgUrl(imgUrl);
-        post.setVideoUrl(videoUrl);
+//        newPost.setUser(user);
+        newPost.setImgUrl(imgUrl);
+        newPost.setVideoUrl(videoUrl);
         //Save new post to database
 
-//        System.out.println(post.getTitle());
-//        System.out.println(post.getDescription());
-//        System.out.println(imgUrl);
-//        System.out.println(videoUrl);
+        System.out.println(newPost.getTitle());
+        System.out.println(newPost.getDescription());
+        System.out.println(imgUrl);
+        System.out.println(videoUrl);
 
-        postDao.save(post);
-        return "TestTemplates/PostCrud";
+
+        user.getPosts().add(newPost);
+        newPost.setUser(user);
+        postDao.save(newPost);
+        return "redirect:/posts";
     }
 
     @PostMapping("/like/testpost")
@@ -96,7 +117,7 @@ public class PostController {
                 postLikeDao.delete(like);
                 System.out.println("like removed");
                 //return to page
-                return "TestTemplates/PostCrud";
+                return "CreatePost";
             }
         }
 
@@ -107,7 +128,7 @@ public class PostController {
         System.out.println("like added");
 
 
-        return "TestTemplates/PostCrud";
+        return "CreatePost";
     }
 
     @PostMapping("/dislike/testpost")
@@ -129,7 +150,7 @@ public class PostController {
                 postDislikeDao.delete(dislike);
                 System.out.println("dislike removed");
                 //return to page
-                return "TestTemplates/PostCrud";
+                return "CreatePost";
             }
         }
 
@@ -139,6 +160,6 @@ public class PostController {
         postDislikeDao.save(postDislike);
         System.out.println("dislike added");
 
-        return "TestTemplates/PostCrud";
+        return "CreatePost";
     }
 }
