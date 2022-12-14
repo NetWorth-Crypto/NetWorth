@@ -48,6 +48,7 @@ public class PostController {
         return "redirect:profile";
     }
 
+
     @GetMapping("/createpost")
     public String testPost(Model model){
         model.addAttribute("post", new Post());
