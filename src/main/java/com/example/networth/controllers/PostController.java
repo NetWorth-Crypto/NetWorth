@@ -49,6 +49,7 @@ public class PostController {
     }
 
     @GetMapping("/createpost")
+
     public String testPost(Model model){
         model.addAttribute("post", new Post());
         return "TestTemplates/CreatePost";

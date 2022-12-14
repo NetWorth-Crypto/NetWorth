@@ -30,6 +30,14 @@ public class PortfolioAsset {
     public PortfolioAsset() {
     }
 
+    public PortfolioAsset(Portfolio portfolio, Asset asset, double quantity, double purchasePrice, Date purchase_date) {
+        this.portfolio = portfolio;
+        this.asset = asset;
+        this.quantity = quantity;
+        this.purchasePrice = purchasePrice;
+        this.purchase_date = purchase_date;
+    }
+
     public Portfolio getPortfolio() {
         return portfolio;
     }
