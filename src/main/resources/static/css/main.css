@@ -1,6 +1,13 @@
 
 
 
+*{
+    box-sizing: border-box;
+    font-family:'Poppins', sans-serif;
+
+}
+
+
 
 /*Navbar*/
 .navbar{
@@ -110,6 +117,7 @@ body
 /* Create Post (currently as Bootstrap) */
 #create-post
 {
+
     position: absolute;
     top: 35%;
     left: 39%;
@@ -124,9 +132,14 @@ a
 
 
 
+/*search cryto style*/
 
-/*************************** UserfinancePage***********************************/
-.right-side {
-    background-color: #F5F7FA;
+.search-item{
+color: royalblue;
 }
 
+
+
+
+
+/**************************************************************/
