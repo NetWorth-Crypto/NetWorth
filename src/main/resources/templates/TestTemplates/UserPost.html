@@ -2,462 +2,85 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--BootStrap Link-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!--FontAwesome script-->
+    <script src="https://kit.fontawesome.com/27b1eac4bf.js" crossorigin="anonymous"></script>
+
+    <!--Custom style sheet-->
+    <link href="css/post.css" rel="stylesheet">
 
     <meta charset="UTF-8"/>
     <title></title>
 </head>
 <body>
-<!-- Container START -->
-<div class="container">
-    <div class="row g-4">
 
-        <!-- Sidenav START -->
-        <div class="col-lg-3">
-
-            <!-- Advanced filter responsive toggler START -->
-            <div class="d-flex align-items-center d-lg-none">
-                <button class="border-0 bg-transparent" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSideNavbar" aria-controls="offcanvasSideNavbar">
-                    <i class="btn btn-primary fw-bold fa-solid fa-sliders-h"></i>
-                    <span class="h6 mb-0 fw-bold d-lg-none ms-2">My profile</span>
-                </button>
-            </div>
-            <!-- Advanced filter responsive toggler END -->
-
-
-
-            <!-- Navbar START-->
-            <nav class="navbar navbar-expand-lg mx-0">
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSideNavbar">
-                    <!-- Offcanvas header -->
-                    <div class="offcanvas-header">
-                        <button type="button" class="btn-close text-reset ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+<div th:each="post: ${posts}">
+<!--//Post Card item-->
+<div class="card w-25">
+    <!--Card header START-->
+    <div class="card-header">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <!--Avatar-->
+                <img th:src="${post.getUser().profilePicture}" class="rounded-circle mb-3" style="width: 50px;" alt="Avatar" />
+                <!--Info-->
+<!--                <h5 class="mb-2"><strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong></h5>-->
+                <div>
+                    <div class="nav nav-divider">
+                        <!--INPUT USER PROFILE LINK-->
+                        <h6 class="nav-item card-title mb-0"> <a href="#!"> <strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong> </a></h6>
                     </div>
-
-                    <!-- Offcanvas body -->
-                    <div class="offcanvas-body d-block px-2 px-lg-0">
-                        <!-- Card START -->
-                        <div class="card overflow-hidden">
-                            <!-- Cover image -->
-                            <div class="h-50px" style="background-image:url(assets/images/bg/01.jpg); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
-
-                            <!-- Card body START -->
-                            <div class="card-body pt-0">
-                                <div class="text-center">
-
-                                    <!-- Avatar -->
-                                    <div class="avatar avatar-lg mt-n5 mb-3">
-                                        <a href="#!"><img class="avatar-img  border border-white border-3" src="images/AS_31.jpg" alt=""></a>
-                                    </div>
-
-                                    <!-- Info -->
-                                    <h5 class="mb-0"> <a href="#!">Anthony Stevens</a> </h5>
-                                    <small>Software Developer</small>
-                                    <p class="mt-3">Just Do it</p>
-
-                                    <!-- User stat START -->
-                                    <div class="hstack gap-2 gap-xl-3 justify-content-center">
-                                        <!-- User stat item -->
-                                        <div>
-                                            <h6 class="mb-0">256</h6>
-                                            <small>Post</small>
-                                        </div>
-
-                                        <!-- Divider -->
-                                        <div class="vr"></div>
-                                        <!-- User stat item -->
-                                        <div>
-                                            <h6 class="mb-0">2.5K</h6>
-                                            <small>Followers</small>
-                                        </div>
-                                        <!-- Divider -->
-                                        <div class="vr"></div>
-                                        <!-- User stat item -->
-                                        <div>
-                                            <h6 class="mb-0">365</h6>
-                                            <small>Following</small>
-                                        </div>
-                                    </div>
-                                    <!-- User stat END -->
-
-                                </div>
-
-                                <!-- Divider -->
-                                <hr>
-
-                                <!-- Side Nav START -->
-                                <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/"> <img class="me-2 h-25px fa-fw" src="" alt=""><span>My Network </span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href=""> <img class="me-2 h-20px fa-fw" src="" alt=""><span>Profile </span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href=""> <img class="me-2 h-20px fa-fw" src="" alt=""><span>Crypto Market </span></a>
-                                    </li>
-                                </ul>
-                                <!-- Side Nav END -->
-                            </div>
-                            <!-- Card body END -->
-                            <!-- Card footer -->
-                            <div class="card-footer text-center py-2">
-                                <a class="btn btn-link btn-sm" href="">Logout </a>
-                            </div>
-                        </div>
-                        <!-- Card END -->
-
-                        </ul>
-                    </div>
+                    <p class="mb-0 small">Web Developer</p>
                 </div>
-            </nav>
-            <!-- Navbar END-->
+            </div>
         </div>
-        <!-- Sidenav END -->
-
-
-
-        <!-- Main content START -->
-        <div class="col-md-8 col-lg-6 vstack gap-4">
-            <!-- Top Performing Portfolio START -->
-
-            <!-- Top Performing PortfolioEND -->
-
-            <!-- Share feed START -->
-            <div class="card card-body">
-                <div class="d-flex mb-3">
-                    <!-- Avatar -->
-                    <div class="avatar avatar-xs me-2">
-                        <a href="#"> <img class="avatar-img " src="images/AS_31.jpg" alt=""> </a>
-                    </div>
-                    <!-- Post input -->
-                    <form class="w-100">
-                        <textarea class="form-control pe-4 border-0" rows="2" data-autoresize="" placeholder="Share your thoughts..."></textarea>
-                        <ul class="nav nav-pills nav-stack small fw-normal">
-                            <li class="nav-item">
-                                <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionPhoto"> <i class="bi bi-image-fill text-success pe-2"></i>Photo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionVideo"> <i class="bi bi-camera-reels-fill text-info pe-2"></i>Video</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionVideo"> <i class="bi bi-camera-reels-fill text-info pe-2"></i>share</a>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <!-- Share feed toolbar START -->
-
-                <!-- Share feed toolbar END -->
-            </div>
-            <!-- Share feed END -->
-
-            <!-- Card feed item START -->
-            <div class="card">
-                <!-- Card header START -->
-                <div class="card-header  border-0 pb-0">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <!-- Avatar -->
-                            <div class="avatar avatar-story me-2">
-                                <a href="#!"> <img class="avatar-img rounded-circle" src="images/AS_31.jpg" alt=""> </a>
-                            </div>
-                            <!-- Info -->
-                            <div>
-                                <div class="nav nav-divider">
-                                    <h6 class="nav-item card-title mb-0"> <a href="#!"> Anthony Stevens </a></h6>
-                                </div>
-                                <p class="mb-0 small">Web Developer</p>
-                            </div>
-                        </div>
-                        <!-- Card feed action dropdown START -->
-                        <div class="dropdown">
-                            <a href="#" class="text-secondary btn btn-secondary-soft-hover py-1 px-2" id="cardFeedAction" data-bs-toggle="dropdown" aria-expanded="false">
-                                <!-- <i class="bi bi-three-dots"></i> -->
-                            </a>
-                            <!-- Card feed action dropdown menu -->
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardFeedAction">
-                                <li><a class="dropdown-item" href="#"> <i class="bi bi-bookmark fa-fw pe-2"></i>Save post</a></li>
-                                <li><a class="dropdown-item" href="#"> <i class="bi bi-person-x fa-fw pe-2"></i>Unfollow lori ferguson </a></li>
-                                <li><a class="dropdown-item" href="#"> <i class="bi bi-x-circle fa-fw pe-2"></i>Hide post</a></li>
-                                <li><a class="dropdown-item" href="#"> <i class="bi bi-slash-circle fa-fw pe-2"></i>Block</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#"> <i class="bi bi-flag fa-fw pe-2"></i>Report post</a></li>
-                            </ul>
-                        </div>
-                        <!-- Card feed action dropdown END -->
-                    </div>
-                </div>
-                <!-- Card header END -->
-                <!-- Card body START -->
-                <div class="card-body">
-                    <p>Post Description Content Goes Here</p>
-                    <!-- Card img -->
-                    <img class="card-img" src="images/networth-1.png"Post">
-                    <!-- Feed react START -->
-                    <ul class="nav nav-stack py-3 small">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#!"> <i class="bi bi-hand-thumbs-up-fill pe-1"></i>Liked (56)</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#!"> <i class="bi bi-hand-thumbs-up-fill pe-1"></i>Disliked (0)</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!"> <i class="bi bi-chat-fill pe-1"></i>Comments (12)</a>
-                        </li>
-                        <!-- Card share action START -->
-                        <!-- <li class="nav-item dropdown ms-sm-auto">
-                          <a class="nav-link mb-0" href="#" id="cardShareAction" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-reply-fill flip-horizontal ps-1"></i>Share (3)
-                          </a> -->
-                        <!-- Card share action dropdown menu -->
-                        <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardShareAction">
-                          <li><a class="dropdown-item" href="#"> <i class="bi bi-envelope fa-fw pe-2"></i>Send via Direct Message</a></li>
-                          <li><a class="dropdown-item" href="#"> <i class="bi bi-bookmark-check fa-fw pe-2"></i>Bookmark </a></li>
-                          <li><a class="dropdown-item" href="#"> <i class="bi bi-link fa-fw pe-2"></i>Copy link to post</a></li>
-                          <li><a class="dropdown-item" href="#"> <i class="bi bi-share fa-fw pe-2"></i>Share post via …</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#"> <i class="bi bi-pencil-square fa-fw pe-2"></i>Share to News Feed</a></li>
-                        </ul>
-                      </li> -->
-                        <!-- Card share action END -->
-                    </ul>
-                    <!-- Feed react END -->
-
-                    <!-- Add comment -->
-                    <div class="d-flex mb-3">
-                        <!-- Avatar -->
-                        <div class="avatar avatar-xs me-2">
-                            <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
-                        </div>
-                        <!-- Comment box  -->
-                        <form class="w-100">
-                            <textarea data-autoresize="" class="form-control pe-4 bg-light" rows="1" placeholder="Add a comment..."></textarea>
-                        </form>
-                    </div>
-                    <!-- Comment wrap START -->
-                    <ul class="comment-wrap list-unstyled">
-                        <!-- Comment item START -->
-                        <li class="comment-item">
-                            <div class="d-flex position-relative">
-                                <!-- Avatar -->
-                                <div class="avatar avatar-xs">
-                                    <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt=""></a>
-                                </div>
-                                <div class="ms-2">
-                                    <!-- Comment by -->
-                                    <div class="bg-light rounded-start-top-0 p-3 rounded">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="mb-1"> <a href="#!"> Frances Guerrero </a></h6>
-                                            <small class="ms-2">5hr</small>
-                                        </div>
-                                        <p class="small mb-0">Removed demands expense account in outward tedious do. Particular way thoroughly unaffected projection.</p>
-                                    </div>
-                                    <!-- Comment react -->
-                                    <ul class="nav nav-divider py-2 small">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#!"> Like (3)</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#!"> Reply</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#!"> View 5 replies</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Comment item nested START -->
-                            <ul class="comment-item-nested list-unstyled">
-                                <!-- Comment item START -->
-                                <li class="comment-item">
-                                    <div class="d-flex">
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-xs">
-                                            <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/06.jpg" alt=""></a>
-                                        </div>
-                                        <!-- Comment by -->
-                                        <div class="ms-2">
-                                            <div class="bg-light p-3 rounded">
-                                                <div class="d-flex justify-content-between">
-                                                    <h6 class="mb-1"> <a href="#!"> Lori Stevens </a> </h6>
-                                                    <small class="ms-2">2hr</small>
-                                                </div>
-                                                <p class="small mb-0">See resolved goodness felicity shy civility domestic had but Drawings offended yet answered Jennings perceive.</p>
-                                            </div>
-                                            <!-- Comment react -->
-                                            <ul class="nav nav-divider py-2 small">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#!"> Like (5)</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#!"> Reply</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- Comment item END -->
-                                <!-- Comment item START -->
-                                <li class="comment-item">
-                                    <div class="d-flex">
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-story avatar-xs">
-                                            <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/07.jpg" alt=""></a>
-                                        </div>
-                                        <!-- Comment by -->
-                                        <div class="ms-2">
-                                            <div class="bg-light p-3 rounded">
-                                                <div class="d-flex justify-content-between">
-                                                    <h6 class="mb-1"> <a href="#!"> Billy Vasquez </a> </h6>
-                                                    <small class="ms-2">15min</small>
-                                                </div>
-                                                <p class="small mb-0">Wishing calling is warrant settled was lucky.</p>
-                                            </div>
-                                            <!-- Comment react -->
-                                            <ul class="nav nav-divider py-2 small">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#!"> Like</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#!"> Reply</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- Comment item END -->
-                            </ul>
-                            <!-- Load more replies -->
-                            <a href="#!" role="button" class="btn btn-link btn-link-loader btn-sm text-secondary d-flex align-items-center mb-3 ms-5" data-bs-toggle="button" aria-pressed="true">
-                                <div class="spinner-dots me-2">
-                                    <span class="spinner-dot"></span>
-                                    <span class="spinner-dot"></span>
-                                    <span class="spinner-dot"></span>
-                                </div>
-                                Load more replies
-                            </a>
-                            <!-- Comment item nested END -->
-                        </li>
-                        <!-- Comment item END -->
-                        <!-- Comment item START -->
-                        <li class="comment-item">
-                            <div class="d-flex">
-                                <!-- Avatar -->
-                                <div class="avatar avatar-xs">
-                                    <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt=""></a>
-                                </div>
-                                <!-- Comment by -->
-                                <div class="ms-2">
-                                    <div class="bg-light p-3 rounded">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="mb-1"> <a href="#!"> Frances Guerrero </a> </h6>
-                                            <small class="ms-2">4min</small>
-                                        </div>
-                                        <p class="small mb-0">Removed demands expense account in outward tedious do. Particular way thoroughly unaffected projection.</p>
-                                    </div>
-                                    <!-- Comment react -->
-                                    <ul class="nav nav-divider pt-2 small">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#!"> Like (1)</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#!"> Reply</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#!"> View 6 replies</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- Comment item END -->
-                    </ul>
-                    <!-- Comment wrap END -->
-                </div>
-                <!-- Card body END -->
-                <!-- Card footer START -->
-                <div class="card-footer border-0 pt-0">
-                    <!-- Load more comments -->
-                    <a href="#!" role="button" class="btn btn-link btn-link-loader btn-sm text-secondary d-flex align-items-center" data-bs-toggle="button" aria-pressed="true">
-                        <div class="spinner-dots me-2">
-                            <span class="spinner-dot"></span>
-                            <span class="spinner-dot"></span>
-                            <span class="spinner-dot"></span>
-                        </div>
-                        Load more comments
-                    </a>
-                </div>
-                <!-- Card footer END -->
-            </div>
-            <!-- Card feed item END -->
-
-        </div>
-        <!-- Main content END -->
-
-        <!-- Right sidebar START -->
-        <div class="col-lg-3">
-            <div class="row g-4">
-                <!-- Card follow START -->
-                <div class="col-sm-6 col-lg-12">
-                    <div class="card">
-                        <!-- Card header START -->
-                        <div class="card-header pb-0 border-0">
-                            <h5 class="card-title mb-0">Who to follow</h5>
-                        </div>
-                        <!-- Card header END -->
-                        <!-- Card body START -->
-                        <div class="card-body">
-                            <!-- Connection item START -->
-                            <div class="hstack gap-2 mb-3">
-                                <!-- Avatar -->
-                                <div class="avatar">
-                                    <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/04.jpg" alt=""></a>
-                                </div>
-                                <!-- Title -->
-                                <div class="overflow-hidden">
-                                    <a class="h6 mb-0" href="#!">Judy Nguyen </a>
-                                    <p class="mb-0 small text-truncate">News anchor</p>
-                                </div>
-                                <!-- Button -->
-                                <a class="btn btn-primary-soft rounded-circle icon-md ms-auto" href="#"><i class="fa-solid fa-plus"> </i></a>
-                            </div>
-                            <!-- Connection item END -->
-                            <!-- Card body END -->
-                        </div>
-                    </div>
-                    <!-- Card follow START -->
-
-                    <!-- Card News START -->
-                    <div class="col-sm-6 col-lg-12">
-                        <div class="card">
-                            <!-- Card header START -->
-                            <div class="card-header pb-0 border-0">
-                                <h5 class="card-title mb-0">Today’s news</h5>
-                            </div>
-                            <!-- Card header END -->
-                            <!-- Card body START -->
-                            <div class="card-body">
-                                <!-- News item -->
-                                <div class="mb-3">
-                                    <h6 class="mb-0"><a href="blog-details.html">Ten questions you should answer truthfully</a></h6>
-                                    <small>2hr</small>
-                                </div>
-                            </div>
-                            <!-- Card body END -->
-                        </div>
-                    </div>
-                    <!-- Card News END -->
-                </div>
-            </div>
-            <!-- Right sidebar END -->
-
-        </div> <!-- Row END -->
     </div>
-    <!-- Container END -->
+    <!--Card header END-->
 
-    </main>
+    <!--Card body START-->
+    <div class="card-body">
+        <!--Post Description-->
+        <p class="card-text" th:text="${post.description}"></p>
+
+        <!--Post image-->
+        <!--MAKE IMAGE AND VIDEO CONDITIONAL UPON NULL CHECK-->
+        <img src="images/logo.png" class="card-img-top" alt="logoImage">
+
+        <!--Post Reaction Items-->
+        <div class="d-flex align-items-center justify-content-between">
+                <form th:action="@{/like/testpost}" th:method="post" >
+                    <input hidden th:value="${post.id}">
+
+                    <button class="btn" type="submit">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                        <span class="badge bg-secondary" th:text="${post.likes.size()}"></span>
+                    </button>
+
+                </form>
+
+                <form th:action="@{/dislike/testpost}" th:method="post" >
+                    <input hidden th:value="${post.id}">
+                    <button class="btn"  type="submit">
+                        <i class="fa-solid fa-thumbs-down"></i>
+                        <span class="badge bg-secondary" th:text="${post.dislikes.size()}"></span>
+                    </button>
+
+                </form>
+
+                <button class="btn" >
+                    Comment
+                    <span class="badge bg-secondary">14</span>
+                </button>
+
+        </div>
+    </div>
+</div>
+<!--Card body END-->
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
