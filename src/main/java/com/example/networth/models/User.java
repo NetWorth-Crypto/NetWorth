@@ -54,7 +54,10 @@ public class User {
     private List<PostDislike> dislikes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
-    private List<Post> posts = new ArrayList<>();
+    private List<Post> posts;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<Comment> comments;
 
     //Constructors
     public User() {
