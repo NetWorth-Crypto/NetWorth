@@ -19,5 +19,8 @@ public class AssetService {
      return assetDao.findByName(name);
     }
 
+    public Asset findById(long id){
+        return assetDao.findById(id).get();
+    }
 
 }

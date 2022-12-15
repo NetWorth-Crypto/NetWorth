@@ -61,4 +61,16 @@ public class PortfolioAsset {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "PortfolioAsset{" +
+                "id=" + id +
+                ", portfolio=" + portfolio +
+                ", asset=" + asset +
+                ", quantity=" + quantity +
+                ", purchasePrice=" + purchasePrice +
+                ", purchase_date=" + purchase_date +
+                '}';
+    }
 }
