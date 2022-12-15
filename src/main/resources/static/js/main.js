@@ -25,6 +25,8 @@ getCrypto().then(data => {
         tbody.innerHTML = html
 
 
+
+
     })
 
 });

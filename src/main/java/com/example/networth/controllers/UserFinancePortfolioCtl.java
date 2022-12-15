@@ -1,9 +1,11 @@
 package com.example.networth.controllers;
 
+import com.example.networth.models.Asset;
 import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
 import com.example.networth.models.User;
 import com.example.networth.repositories.PortfolioAssetRepository;
+import com.example.networth.services.AssetService;
 import com.example.networth.services.PortfolioAssetService;
 import com.example.networth.services.PortfolioService;
 import org.springframework.security.core.Authentication;
@@ -16,17 +18,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Controller
 public class UserFinancePortfolioCtl {
     private final PortfolioService portfolioService;
-
+    private final AssetService assetService;
     private final PortfolioAssetService portAssetDao;
-    public UserFinancePortfolioCtl(PortfolioService portfolioService, PortfolioAssetService portAssetDao) {
+    public UserFinancePortfolioCtl(PortfolioService portfolioService, PortfolioAssetService portAssetDao,AssetService assetService) {
         this.portfolioService = portfolioService;
         this.portAssetDao = portAssetDao;
+        this.assetService = assetService;
     }
 
 
@@ -63,16 +67,44 @@ public class UserFinancePortfolioCtl {
         Portfolio portfolio = new Portfolio((User)auth.getPrincipal(),name,isDefault,dollarLimit,isPrivate);
 
 portfolioService.addPortfolio(portfolio);
-        return "redirect:/crypto";
+        return "redirect:/userFinance";
     }
 
     @GetMapping(path = "/asset/{id}")
     public String getAsset(@PathVariable long id, Model model){
         System.out.println(id);
-        List<PortfolioAsset> asset = portAssetDao.findByPortfolio(portfolioService.findById(id));
-        model.addAttribute("asset",asset);
-        System.out.println("here ------------------"+ asset.get(1).toString());
-        return "users/userFinance";
+        Portfolio portfolio = portfolioService.findById(id);
+        System.out.println(portfolio.getName());
+        List<PortfolioAsset> portfolioAssets = portAssetDao.findByPortfolio(portfolio);
+        model.addAttribute("portfolioAssets",portfolioAssets);
+
+        List<Asset> assets = new ArrayList<>();
+        for(PortfolioAsset ass: portfolioAssets){
+            Asset asset = assetService.findById(ass.getAsset().getId());
+            assets.add(asset);
+
+        }
+model.addAttribute("assets",assets);
+
+
+        return "viewAssets";
+    }
+
+
+    @GetMapping("/viewAll")
+    public String viewAll(){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+User currentUser = (User) auth.getPrincipal();
+        List<Portfolio> portfolios =portfolioService.findByUser(currentUser);
+
+       for(Portfolio portfolio : portfolios){
+
+
+       }
+
+        return "viewAll";
+
     }
 
 }

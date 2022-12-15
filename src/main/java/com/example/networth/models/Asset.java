@@ -69,7 +69,19 @@ public class Asset {
         return currentPrice;
     }
 
+    @Override
+    public String toString() {
+        return "Asset{" +
+                "id=" + id +
+                ", ticker='" + ticker + '\'' +
+                ", name='" + name + '\'' +
+                ", currentPrice=" + currentPrice +
+                '}';
+    }
+
     public void setCurrentPrice(double currentPrice) {
         this.currentPrice = currentPrice;
     }
+
+
 }
