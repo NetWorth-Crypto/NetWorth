@@ -11,14 +11,30 @@
 
 <body>
 
-
+<div th:replace="fragments :: portfolio-navbar"></div>
 <!--            -->
 
             <div class="user-area">
 
             </div>
             <div class="row main">
+                <div class="col-2  sidebar">
+                    <div class="row d-flex flex-column">
 
+                    <div class="col">
+                        <a th:href="@{/createPortfolio}" class="btn btn-primary">Create a portfolio</a>
+
+
+                    </div>
+                    <div class="col"><button class="btn btn-primary">1</button>
+                    </div>
+                    <div class="col"> <button class="btn btn-primary">3</button>
+                    </div>
+
+                    </div>
+                </div>
+<div class="col-10 main-content">
+    <div class="row content">
                 <div class="col left-side">
 
                     <div class="row left">
@@ -134,15 +150,11 @@
 
                     </div>
                 </div>
-
+    </div>
+            </div>
             </div>
 
-
             <!--            -->
-
-        </div>
-    </div>
-</div>
 
 
 
