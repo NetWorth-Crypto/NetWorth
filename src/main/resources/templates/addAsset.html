@@ -46,9 +46,9 @@
 
                     <div class="form-group">
 
-                        <label for="portfolio">Portfolio  </label>
-                            <select th:each="portfolio: ${portfolios}" id="portfolio" name="portfolio" class="form-select">
-                                <option th:text="${portfolio.name}"></option>
+                        <label for="portfolio">Portfolio</label>
+                            <select id="portfolio" name="portfolio" class="form-select">
+                                <option th:each="portfolio : ${portfolios}" th:value="${portfolio.id}" th:text="${portfolio.name}"></option>
                             </select>
 
                     </div>

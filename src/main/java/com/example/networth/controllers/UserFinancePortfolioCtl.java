@@ -33,7 +33,7 @@ public class UserFinancePortfolioCtl {
         this.assetService = assetService;
     }
 
-
+//****************************VIEW USERFINANCE PAGE IF LOGIN************************************
     @GetMapping("/userFinance")
     public String userFinancePage(Model model, RedirectAttributes redirectAttrs) {
 
@@ -50,6 +50,10 @@ public class UserFinancePortfolioCtl {
             return "users/userFinance";
     }
 
+
+
+
+//    **************************CREATE PORTFOLIO**************************************
 
     @GetMapping("/createPortfolio")
     public String createPortfolio(){
@@ -70,6 +74,8 @@ portfolioService.addPortfolio(portfolio);
         return "redirect:/userFinance";
     }
 
+
+//    *****************************VIW PORTFOLIO ASSET*********************************
     @GetMapping(path = "/asset/{id}")
     public String getAsset(@PathVariable long id, Model model){
         System.out.println(id);
@@ -91,20 +97,36 @@ model.addAttribute("assets",assets);
     }
 
 
+
+//    VIEW ALL ASSET*************************************************
+
     @GetMapping("/viewAll")
-    public String viewAll(){
+    public String viewAll(Model model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-User currentUser = (User) auth.getPrincipal();
-        List<Portfolio> portfolios =portfolioService.findByUser(currentUser);
+        User currentUser = (User) auth.getPrincipal();
+        List<Portfolio> portfolios = portfolioService.findByUser(currentUser);
 
-       for(Portfolio portfolio : portfolios){
+List<PortfolioAsset>total = new ArrayList<>();
+        for (Portfolio portfolio : portfolios) {
+          List<PortfolioAsset> portfolioAssets = portAssetDao.findByPortfolio(portfolio);
+            total.addAll(portfolioAssets);
+            }
 
+        List<Asset> assets = new ArrayList<>();
+        for(PortfolioAsset ass: total){
+            Asset asset = assetService.findById(ass.getAsset().getId());
+            assets.add(asset);
 
-       }
+        }
 
-        return "viewAll";
+        model.addAttribute("portfolioAssets",total);
+
+        model.addAttribute("assets",assets);
+        return "viewAssets";
+        }
+
 
     }
 
-}
+
