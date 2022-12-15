@@ -77,21 +77,23 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    /********************TEST ROUTES********************/
-    @GetMapping("/createpost")
-    public String testPost(Model model){
-        model.addAttribute("post", new Post());
-        return "TestTemplates/CreatePost";
-    }
+    @PostMapping("/like/post")
+    public String likeTestPost(@RequestParam("postId") long postId){
 
-    @PostMapping("/like/testpost")
-    public String likeTestPost(@ModelAttribute Post post){
-
-        Post likedPost = postDao.getReferenceById(post.getId());
+        System.out.println(postId);
+        //Get liked post from database
+        Post likedPost = postDao.getReferenceById(postId);
 
         /*Change this to the actual logged in user*/
-        User user = userDao.getReferenceById(1L);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
 
+        //Get all users' likes
         List<PostLike> userLikes = user.getLikes();
 
         //Check user already like the post
@@ -104,7 +106,7 @@ public class PostController {
                 postLikeDao.delete(like);
                 System.out.println("like removed");
                 //return to page
-                return "CreatePost";
+                return "redirect:/posts#post"+postId;
             }
         }
 
@@ -115,15 +117,22 @@ public class PostController {
         System.out.println("like added");
 
 
-        return "CreatePost";
+        return "redirect:/posts#post"+postId;
     }
 
-    @PostMapping("/dislike/testpost")
-    public String dislikeTestPost(@ModelAttribute Post post){
-        Post dislikedPost = postDao.getReferenceById(post.getId());
+    @PostMapping("/dislike/post")
+    public String dislikeTestPost(@RequestParam("postId") long postId){
+
+        Post dislikedPost = postDao.getReferenceById(postId);
 
         /*Change this to the actual logged in user*/
-        User user = userDao.getReferenceById(1L);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
 
         List<PostDislike> userDislikes = user.getDislikes();
 
@@ -137,7 +146,7 @@ public class PostController {
                 postDislikeDao.delete(dislike);
                 System.out.println("dislike removed");
                 //return to page
-                return "CreatePost";
+                return "redirect:/posts#post"+postId;
             }
         }
 
@@ -147,8 +156,19 @@ public class PostController {
         postDislikeDao.save(postDislike);
         System.out.println("dislike added");
 
-        return "CreatePost";
+        return "redirect:/posts#post"+postId;
     }
+
+    /********************TEST ROUTES********************/
+    @GetMapping("/createpost")
+    public String testPost(Model model){
+        model.addAttribute("post", new Post());
+        return "TestTemplates/CreatePost";
+    }
+
+
+
+
 
     @GetMapping("/search")
     public String getSearch()

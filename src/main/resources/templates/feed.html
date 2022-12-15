@@ -194,7 +194,7 @@
                     <div class="card ">
 
                         <!--Card header START-->
-                        <div class="card-header">
+                        <div class="card-header" th:id="'post'+${post.id}">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <!--Avatar-->
@@ -219,7 +219,7 @@
                         <!--Card body START-->
                         <div class="card-body">
                             <!--Post Description-->
-                            <p class="card-text" th:text="${post.description}"></p>
+                            <p class="card-text"  th:text="${post.description}"></p>
 
                             <!--Post image-->
                             <div th:if="${post.imgUrl} != 'null'">
@@ -232,10 +232,11 @@
                                     <source th:src="${post.videoUrl}" type="video/mp4">
                                 </video>
                             </div>
+
                             <!--Post Reaction Items START-->
                             <div class="d-flex align-items-center justify-content-between">
-                                <form th:action="@{/like/testpost}" th:method="post">
-                                    <input hidden th:value="${post.id}">
+                                <form th:action="@{/like/post}" th:method="post">
+                                    <input hidden name="postId" th:value="${post.id}">
 
                                     <button class="btn" type="submit">
                                         <i class="fa-solid fa-thumbs-up"></i>
@@ -244,8 +245,8 @@
 
                                 </form>
 
-                                <form th:action="@{/dislike/testpost}" th:method="post">
-                                    <input hidden th:value="${post.id}">
+                                <form th:action="@{/dislike/post}" th:method="post">
+                                    <input hidden name="postId" th:value="${post.id}">
                                     <button class="btn" type="submit">
                                         <i class="fa-solid fa-thumbs-down"></i>
                                         <span class="badge bg-secondary" th:text="${post.dislikes.size()}"></span>
