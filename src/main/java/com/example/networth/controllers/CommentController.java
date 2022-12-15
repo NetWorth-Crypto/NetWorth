@@ -6,10 +6,7 @@ import com.example.networth.repositories.CommentRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CommentController {
@@ -34,7 +31,7 @@ public class CommentController {
 
         model.addAttribute("Comment", comment);
 
-        return "redirect:/comments/readComment";
+        return "redirect:/comments/{id}";
     }
 
     /* Read Comment */
@@ -45,7 +42,7 @@ public class CommentController {
     }
 
     /* Delete Comment */
-    @PostMapping("/comments/{id}/delete")
+    @DeleteMapping("/comments/{id}/delete")
     public String deleteComment(@PathVariable long id) {
         commentDao.delete(commentDao.getReferenceById(id));
         return "redirect:/comments";
