@@ -16,7 +16,7 @@ public class PortfolioAssetService {
     public PortfolioAssetService(PortfolioAssetRepository pADao) {
         this.pADao = pADao;
     }
-    List<PortfolioAsset>findByPortfolio(Portfolio portfolio){
+  public List<PortfolioAsset>findByPortfolio(Portfolio portfolio){
         return pADao.findByPortfolio(portfolio);
     }
 
