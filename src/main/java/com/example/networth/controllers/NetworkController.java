@@ -27,13 +27,13 @@ public class NetworkController {
     @Autowired
     private UserRepository userDao;
 
-    @GetMapping("/follower")
+    @GetMapping("/followers")
     public String testFollower(Model model) {
         model.addAttribute("follower", new Follower());
         return "users/followers";
     }
 
-    @PostMapping("/create/follower")
+    @PostMapping("/create/followers")
     public String testFollower1(@ModelAttribute("follower") Follower follower,
                                 @RequestParam("follower_user_id") long follower_user_id) {
         //Get UserId from logged-in user to create new follower
@@ -69,10 +69,10 @@ public class NetworkController {
                 followerDao.delete(follower1);
                 System.out.println("no more follwing " + follower1.getUser());
                 //return to page
-                return "users/follower";
+                return "users/followers";
             }
         }
-        return "users/follower";
+        return "users/followers";
     }
 
     @GetMapping("/following")
@@ -115,7 +115,7 @@ public class NetworkController {
                 user.addFollowing(following1);
                 userFollowing.removeFollowing(following1);
                 followingDao.delete(following);
-                System.out.println("You are follwing " + following.getUser());
+                System.out.println("You are following " + following.getUser());
                 //return to page
                 return "users/following";
             }
