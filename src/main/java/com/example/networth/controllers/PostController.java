@@ -37,29 +37,12 @@ public class PostController {
     private PostDislikeRepository postDislikeDao;
 
 
-    
-        @GetMapping("/search")
-    public String getSearch()
-    {
-        return "post/search";
-    }
-    @PostMapping("/search")
-    public String postSearch(@RequestParam(value = "searchValue")String searchValue) {
-        System.out.println(searchValue);
-        return "redirect:profile";
-    }
-
+    /********************COMPLETE ROUTES********************/
     @GetMapping("/posts")
     public String userPost(Model model){
         //Get All Post
         List<Post> posts = postDao.findAll();
         Collections.reverse(posts);
-
-//        User user = userDao.getReferenceById(1l);
-//        Post post = postDao.getReferenceById(1l);
-
-//        model.addAttribute("user",user);
-//        model.addAttribute("post",post);
         model.addAttribute("posts",posts);
         model.addAttribute("newPost",new Post());
 
@@ -80,26 +63,21 @@ public class PostController {
         User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getReferenceById(loggedinUser.getId());
 
-        //Create new post
+        //Save image/video to new post
         newPost.setImgUrl(imgUrl);
         newPost.setVideoUrl(videoUrl);
 
-        //Save new post to database
-
+        //Check if user logged-in
         System.out.println(user.getId());
-//        System.out.println(newPost.getTitle());
-        System.out.println(newPost.getDescription());
-        System.out.println(imgUrl);
-        System.out.println(videoUrl);
 
-
+        //Save new post to database
         user.getPosts().add(newPost);
         newPost.setUser(user);
         postDao.save(newPost);
         return "redirect:/posts";
     }
 
-    //Test routes
+    /********************TEST ROUTES********************/
     @GetMapping("/createpost")
     public String testPost(Model model){
         model.addAttribute("post", new Post());
@@ -170,5 +148,16 @@ public class PostController {
         System.out.println("dislike added");
 
         return "CreatePost";
+    }
+
+    @GetMapping("/search")
+    public String getSearch()
+    {
+        return "post/search";
+    }
+    @PostMapping("/search")
+    public String postSearch(@RequestParam(value = "searchValue")String searchValue) {
+        System.out.println(searchValue);
+        return "redirect:profile";
     }
 }

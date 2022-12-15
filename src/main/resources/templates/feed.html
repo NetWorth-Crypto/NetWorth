@@ -222,8 +222,16 @@
                             <p class="card-text" th:text="${post.description}"></p>
 
                             <!--Post image-->
-                            <img th:if="${post.imgUrl}" th:src="${post.imgUrl}" class="card-img-top" alt="logoImage">
+                            <div th:if="${post.imgUrl} != 'null'">
+                                <img th:src="${post.imgUrl}" class="card-img-top" alt="logoImage">
+                            </div>
 
+                            <!--video image-->
+                            <div th:if="${post.videoUrl} != 'null'">
+                                <video width="540" height="320" controls>
+                                    <source th:src="${post.videoUrl}" type="video/mp4">
+                                </video>
+                            </div>
                             <!--Post Reaction Items START-->
                             <div class="d-flex align-items-center justify-content-between">
                                 <form th:action="@{/like/testpost}" th:method="post">
@@ -245,7 +253,8 @@
 
                                 </form>
 
-                                <button class="btn" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <button class="btn" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                        aria-expanded="false" aria-controls="collapseExample">
                                     Comment
                                     <span class="badge bg-secondary">14</span>
                                 </button>
@@ -258,11 +267,13 @@
                                 <!-- Avatar -->
                                 <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
                                 <div class="avatar avatar-xs me-2">
-                                    <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
+                                    <a href="#!"> <img class="avatar-img rounded-circle"
+                                                       src="assets/images/avatar/12.jpg" alt=""> </a>
                                 </div>
                                 <!-- Comment box  -->
                                 <form class="w-100">
-                                    <textarea data-autoresize="" class="form-control pe-4 bg-light" rows="1" placeholder="Add a comment..."></textarea>
+                                    <textarea data-autoresize="" class="form-control pe-4 bg-light" rows="1"
+                                              placeholder="Add a comment..."></textarea>
                                     <input type="submit" hidden>
                                 </form>
                             </div>
@@ -276,13 +287,14 @@
                                             <!-- Avatar -->
                                             <!--GET COMMENT USER IMAGE-->
                                             <div class="avatar avatar-xs">
-                                                <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt=""></a>
+                                                <a href="#!"><img class="avatar-img rounded-circle"
+                                                                  src="assets/images/avatar/05.jpg" alt=""></a>
                                             </div>
                                             <div class="ms-2">
                                                 <!-- Comment by -->
                                                 <div class="bg-light rounded-start-top-0 p-3 rounded">
                                                     <div class="d-flex justify-content-between">
-                                                        <h6 class="mb-1"> <a href="#!"> Anthony Stevens </a></h6>
+                                                        <h6 class="mb-1"><a href="#!"> Anthony Stevens </a></h6>
                                                     </div>
                                                     <p class="small mb-0">No more Comment.comment</p>
                                                 </div>
