@@ -69,11 +69,11 @@ if(portfolios.isEmpty()){
                            @RequestParam("ticker")String ticker,
                            @RequestParam("price")double price,
                            @RequestParam("quantity")int quantity,
-                           @RequestParam("portfolio")String portfolio,
+                           @RequestParam("portfolio")long portfolio,
                               Model model,
     RedirectAttributes redirectAttrs) {
 
-        Portfolio newPortfolio = portfolioService.findByName(portfolio);
+        Portfolio newPortfolio = portfolioService.findById(portfolio);
 
         if (assetService.findByName(name) != null || pAservice.findByAssetAndPortfolio(assetService.findByName(name),newPortfolio) != null) {
             redirectAttrs.addFlashAttribute("red", "Ticker already Exist in Portfolio");
@@ -82,7 +82,7 @@ if(portfolios.isEmpty()){
             assetService.addAsset(new Asset(ticker, name, price));
             Asset asset = assetService.findByName(name);
 
-            Portfolio portfolio1 = portfolioService.findByName(portfolio);
+            Portfolio portfolio1 = portfolioService.findById(portfolio);
 
 
             Date date = new Date();
