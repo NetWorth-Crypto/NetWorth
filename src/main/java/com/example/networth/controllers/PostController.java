@@ -10,6 +10,7 @@ import com.example.networth.repositories.PostLikeRepository;
 import com.example.networth.repositories.PostRepository;
 import com.example.networth.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,13 +49,6 @@ public class PostController {
         return "redirect:profile";
     }
 
-
-    @GetMapping("/createpost")
-    public String testPost(Model model){
-        model.addAttribute("post", new Post());
-        return "TestTemplates/CreatePost";
-    }
-
     @GetMapping("/posts")
     public String userPost(Model model){
         //Get All Post
@@ -78,15 +72,22 @@ public class PostController {
                             @RequestParam("imgUrl") String imgUrl,
                             @RequestParam("videoUrl") String videoUrl){
         //Get UserId from logged-in user to create new post
-        User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userDao.getReferenceById(loggedinUser.getId());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
         //Create new post
-//        newPost.setUser(user);
         newPost.setImgUrl(imgUrl);
         newPost.setVideoUrl(videoUrl);
+
         //Save new post to database
 
-        System.out.println(newPost.getTitle());
+        System.out.println(user.getId());
+//        System.out.println(newPost.getTitle());
         System.out.println(newPost.getDescription());
         System.out.println(imgUrl);
         System.out.println(videoUrl);
@@ -96,6 +97,13 @@ public class PostController {
         newPost.setUser(user);
         postDao.save(newPost);
         return "redirect:/posts";
+    }
+
+    //Test routes
+    @GetMapping("/createpost")
+    public String testPost(Model model){
+        model.addAttribute("post", new Post());
+        return "TestTemplates/CreatePost";
     }
 
     @PostMapping("/like/testpost")
