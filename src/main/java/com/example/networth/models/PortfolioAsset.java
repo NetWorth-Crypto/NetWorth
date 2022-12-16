@@ -30,6 +30,14 @@ public class PortfolioAsset {
     public PortfolioAsset() {
     }
 
+    public PortfolioAsset(Portfolio portfolio, Asset asset, double quantity, double purchasePrice, Date purchase_date) {
+        this.portfolio = portfolio;
+        this.asset = asset;
+        this.quantity = quantity;
+        this.purchasePrice = purchasePrice;
+        this.purchase_date = purchase_date;
+    }
+
     public Portfolio getPortfolio() {
         return portfolio;
     }
@@ -52,5 +60,17 @@ public class PortfolioAsset {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "PortfolioAsset{" +
+                "id=" + id +
+                ", portfolio=" + portfolio +
+                ", asset=" + asset +
+                ", quantity=" + quantity +
+                ", purchasePrice=" + purchasePrice +
+                ", purchase_date=" + purchase_date +
+                '}';
     }
 }

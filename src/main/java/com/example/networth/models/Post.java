@@ -2,7 +2,8 @@ package com.example.networth.models;
 
 import lombok.Getter;
 import lombok.Setter;
-
+import org.hibernate.annotations.Cascade;
+//import org
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,11 +17,10 @@ public class Post {
     private long id;
 
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column()
-    private String title;
 
     @Column
     private String imgUrl;
@@ -44,8 +44,8 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String imgUrl, String videoUrl,String description) {
-        this.title = title;
+    public Post(String imgUrl, String videoUrl,String description) {
+
         this.imgUrl = imgUrl;
         this.description = description;
         this.videoUrl = videoUrl;
