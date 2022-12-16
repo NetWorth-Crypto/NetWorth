@@ -75,6 +75,9 @@ public class NetworkController {
         return "users/followers";
     }
 
+
+
+
     @GetMapping("/follow")
     public String testFollow(Model model) {
         model.addAttribute("following", new Following());
@@ -111,7 +114,6 @@ public class NetworkController {
 
     @GetMapping("/following")
     public String testFollowing(Model model) {
-        model.addAttribute("following", new Following());
         return "users/following";
     }
 

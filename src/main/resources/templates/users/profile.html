@@ -29,8 +29,8 @@
                             <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
                                     style="z-index: 1;"><a href="/create-post">Create Post</a>
                             </button>
-                            <form method="post" action="/search/posts">
-                            <input type="text" placeholder="Search Posts">
+                            <form method="post" action="/search/posts" th:href="@{/post/searchPost}">
+                                <input type="text" placeholder="Search Posts">
                                 <button>Search</button>
                             </form>
                         </div>
