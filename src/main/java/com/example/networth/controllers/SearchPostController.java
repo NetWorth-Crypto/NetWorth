@@ -5,9 +5,9 @@ import com.example.networth.services.SearchPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.FlowView;
 import java.util.List;
 
 @Controller
@@ -16,14 +16,25 @@ public class SearchPostController {
     @Autowired
     private SearchPostService searchPostService;
 
-    @GetMapping(path = {"/searchPost"})
-    public String search(Model model, String keyword) {
-        if(keyword!=null) {
-            List<Post> list = searchPostService.getByKeyword(keyword);
-            model.addAttribute("list", list);
-        }else {
-            List<Post> list = searchPostService.getAllPost();
-            model.addAttribute("list", list);}
-        return "searchPost";
+    @GetMapping("/searchPost")
+    public String showSearch() {
+        return "post/searchPost";
+    }
+
+
+    @RequestMapping(path = {"/post/searchPost"})
+    public String search(Model model, @RequestParam(value = "keyword") String keyword) {
+        System.out.println(keyword);
+
+        List<Post> lists = searchPostService.getByKeyword(keyword);
+        model.addAttribute("lists", lists);
+        System.out.println(lists);
+        return "post/searchResult";
+
+//    @PostMapping("/searchPost")
+//    public String postSearch(@RequestParam(value = "keyword")String keyword) {
+//        System.out.println(keyword);
+//        return "post/searchResult";
+//    }
     }
 }
