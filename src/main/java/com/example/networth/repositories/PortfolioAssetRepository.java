@@ -12,4 +12,5 @@ public interface PortfolioAssetRepository extends JpaRepository<PortfolioAsset,L
 
     PortfolioAsset findByAssetAndPortfolio(Asset asset, Portfolio portfolio);
 
+    PortfolioAsset findByAsset(Asset asset);
 }

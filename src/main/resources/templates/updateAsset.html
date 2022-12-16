@@ -21,35 +21,32 @@
 
         <div class="card card-outline-secondary">
             <div class="card-header">
-                <h3 class="mb-0">Add asset</h3>
+                <h3 class="mb-0">Update asset</h3>
             </div>
 
             <div class="card-body">
-                <form th:action="@{/add_crypto}" th:method="post"  class="form">
+                <form th:action="@{/updating}" th:method="post"  class="form">
                     <div class="form-group">
                         <label for="name">Asset name</label>
-                        <input class="form-control" id="name" name="name" required="" type="text" th:value="${name}"/>
+                        <input class="form-control" id="name" name="name" required="" readonly type="text" th:value="${asset.name}"/>
                     </div>
                     <div class="form-group">
                         <label for="ticker">Ticker</label>
-                        <input  class="form-control" id="ticker" required="" type="text" name="ticker" th:value="${ticker}"/>
+                        <input  class="form-control" id="ticker" required="" type="text" readonly name="ticker" th:value="${asset.ticker}"/>
                     </div>
                     <div class="form-group">
                         <label for="price" >Price</label>
-                            <input id="price" name="price" class="form-control" type="text" th:value="${price}"/>
+                        <input id="price" name="price" class="form-control" type="text" readonly th:value="${asset.currentPrice}"/>
                     </div>
 
                     <div class="form-group">
                         <label for="quantity">Quantity</label>
-                        <input class="form-control" id="quantity" name="quantity" required="" type="text"/>
+                        <input class="form-control" id="quantity" name="quantity" required="" type="number"/>
                     </div>
 
-                    <div class="form-group">
+                    <div  class="form-group invisible">
 
-                        <label for="portfolio">Portfolio</label>
-                            <select id="portfolio" name="portfolio" class="form-select">
-                                <option th:each="portfolio : ${portfolios}" th:value="${portfolio.id}" th:text="${portfolio.name}"></option>
-                            </select>
+                        <input type="text" name="id" th:value="${asset.id}">
 
                     </div>
 

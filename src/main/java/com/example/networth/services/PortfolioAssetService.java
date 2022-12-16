@@ -16,7 +16,7 @@ public class PortfolioAssetService {
     public PortfolioAssetService(PortfolioAssetRepository pADao) {
         this.pADao = pADao;
     }
-    List<PortfolioAsset>findByPortfolio(Portfolio portfolio){
+  public List<PortfolioAsset>findByPortfolio(Portfolio portfolio){
         return pADao.findByPortfolio(portfolio);
     }
 
@@ -25,5 +25,17 @@ public class PortfolioAssetService {
     }
     public PortfolioAsset findByAssetAndPortfolio(Asset asset, Portfolio portfolio){
        return pADao.findByAssetAndPortfolio(asset,portfolio);
+    }
+
+    public PortfolioAsset findByAsset(Asset asset){
+        return pADao.findByAsset(asset);
+    }
+
+    public void delete(PortfolioAsset portfolioAsset) {
+        pADao.delete(portfolioAsset);
+    }
+
+    public void save(PortfolioAsset portfolioAsset) {
+        pADao.save(portfolioAsset);
     }
 }
