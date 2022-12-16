@@ -38,3 +38,4 @@ filepickerAPI.js
 # production database
 src/main/resources/application.propertiessrc/main/resources/application.properties
 src/main/resources/application.properties
+src/main/resources/application.properties
