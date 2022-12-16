@@ -12,20 +12,20 @@ import java.util.List;
 public class SearchPostService {
 
     @Autowired
-    private SearchPostRepository postrepository;
+    private SearchPostRepository searchPostRepository;
+
+//    /*
+//      Get the List of Post
+//     */
+//    public List<Post> getAllPost(){
+//        List<Post> list = ( List<Post>)searchPostRepository.findAll();
+//        return list;
+//    }
 
     /*
-     * TODO: Get the List of Shops
-     */
-    public List<Post> getAllPost(){
-        List<Post> list =  (List<Post>)postrepository.findAll();
-        return list;
-    }
-
-    /*
-     * TODO: Get Shop By keyword
+     * get post by keyword
      */
     public List<Post> getByKeyword(String keyword){
-        return postrepository.findByKeyword(keyword);
+        return searchPostRepository.findByKeyword(keyword);
     }
 }
