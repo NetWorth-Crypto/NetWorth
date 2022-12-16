@@ -25,7 +25,7 @@ insert into post(title,description,user_id,img_url)
 values ('Anthony\'s first post','Creating the next big thing', 1,'https://cdn.filestackcontent.com/B1HWOZWnRdOm25QzgdfM'),
        ('Cas\'s first post', 'Jp makes the world go around',2, 'https://cdn.filestackcontent.com/5j0rqMzIQd2zk0vK5oUL');
 
-insert into comment(message,posting_user_id, post_id)
+insert into comment(message,user_id, post_id)
 values ('I 100% agree!',1,2),
        ('Good luck!',2,1);
 

@@ -1,24 +1,16 @@
 package com.example.networth.controllers;
 
 
-import com.example.networth.models.Post;
-import com.example.networth.models.PostDislike;
-import com.example.networth.models.PostLike;
-import com.example.networth.models.User;
-import com.example.networth.repositories.PostDislikeRepository;
-import com.example.networth.repositories.PostLikeRepository;
-import com.example.networth.repositories.PostRepository;
-import com.example.networth.repositories.UserRepository;
+import com.example.networth.models.*;
+import com.example.networth.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,6 +28,9 @@ public class PostController {
     @Autowired
     private PostDislikeRepository postDislikeDao;
 
+    @Autowired
+    private CommentRepository commentDao;
+
 
     /********************COMPLETE ROUTES********************/
     @GetMapping("/posts")
@@ -43,8 +38,14 @@ public class PostController {
         //Get All Post
         List<Post> posts = postDao.findAll();
         Collections.reverse(posts);
+
+        List<Comment> comments = commentDao.findAll();
+
+
         model.addAttribute("posts",posts);
+        model.addAttribute("comments",comments);
         model.addAttribute("newPost",new Post());
+        model.addAttribute("newComment", new Comment());
 
         return "feed";
     }
@@ -78,7 +79,7 @@ public class PostController {
     }
 
     @PostMapping("/like/post")
-    public String likeTestPost(@RequestParam("postId") long postId){
+    public String likePost(@RequestParam("postId") long postId){
 
         System.out.println(postId);
         //Get liked post from database
@@ -121,7 +122,7 @@ public class PostController {
     }
 
     @PostMapping("/dislike/post")
-    public String dislikeTestPost(@RequestParam("postId") long postId){
+    public String dislikePost(@RequestParam("postId") long postId){
 
         Post dislikedPost = postDao.getReferenceById(postId);
 
@@ -157,6 +158,44 @@ public class PostController {
         System.out.println("dislike added");
 
         return "redirect:/posts#post"+postId;
+    }
+
+    @PostMapping("/posts/{id}/create/comment")
+    public String createComment(@ModelAttribute Comment comment,
+                                @PathVariable long id){
+
+        EntityManager em;
+        System.out.println("Comment Section Hit!");
+        //find user
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+        System.out.println(user.getFirstName());
+
+        //find post
+        Post post = postDao.getReferenceById(id);
+        System.out.println(post.getDescription());
+
+
+
+
+        //add comment to post comment list
+        post.getComments().add(comment);
+        //add comment to user comment list
+        user.getComments().add(comment);
+        //Save to database
+        System.out.println("Comments added to entities");
+
+        //set comment fields(post,user)
+        comment.setPost(post);
+        comment.setUser(user);
+        commentDao.save(comment);
+
+        return "redirect:/posts#post"+id;
     }
 
     /********************TEST ROUTES********************/

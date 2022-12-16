@@ -272,15 +272,16 @@
                                                        src="assets/images/avatar/12.jpg" alt=""> </a>
                                 </div>
                                 <!-- Comment box  -->
-                                <form class="w-100">
-                                    <textarea data-autoresize="" class="form-control pe-4 bg-light" rows="1"
+                                <form class="w-100" th:action="@{/posts/{id}/create/comment(id=${post.id})}" th:method="post" th:object="${newComment}">
+                                    <textarea th:field="*{message}" name="commentSection" data-autoresize="" class="form-control pe-4 bg-light" rows="1"
                                               placeholder="Add a comment..."></textarea>
-                                    <input type="submit" hidden>
+                                    <button type="submit" >comment</button>
                                 </form>
                             </div>
                             <!-- Add comment END-->
 
                             <!-- Comment wrap START -->
+                            <div th:each="comment: ${post.getComments()}">
                             <div class="collapse" id="collapseExample">
                                 <ul class="comment-wrap list-unstyled">
                                     <li class="comment-item">
@@ -289,15 +290,15 @@
                                             <!--GET COMMENT USER IMAGE-->
                                             <div class="avatar avatar-xs">
                                                 <a href="#!"><img class="avatar-img rounded-circle"
-                                                                  src="assets/images/avatar/05.jpg" alt=""></a>
+                                                                  th:src="${comment.user.profilePicture}" alt=""></a>
                                             </div>
                                             <div class="ms-2">
                                                 <!-- Comment by -->
-                                                <div class="bg-light rounded-start-top-0 p-3 rounded">
+                                                <div class=" rounded-start-top-0 p-3 rounded">
                                                     <div class="d-flex justify-content-between">
-                                                        <h6 class="mb-1"><a href="#!"> Anthony Stevens </a></h6>
+                                                        <h6 class="mb-1"><a href="#!" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>
                                                     </div>
-                                                    <p class="small mb-0">No more Comment.comment</p>
+                                                    <p class="small mb-0" th:text="${comment.message}"></p>
                                                 </div>
                                                 <!-- Comment react -->
                                                 <!-- PUT THIS IF TIME IS ALLOTED-->
@@ -317,6 +318,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            </div>
                             <!-- Comment wrap END -->
 
                         </div>
@@ -332,6 +334,11 @@
             <!-- Right sidebar START -->
             <div class="col-lg-3">
                 <div class="row g-4">
+
+                    <!--24 Hour Crypto -->
+                    <div class="card" id="tbody">
+
+                    </div>
                     <!-- Card follow START -->
                     <div class="col-sm-6 col-lg-12">
                         <div class="card">
