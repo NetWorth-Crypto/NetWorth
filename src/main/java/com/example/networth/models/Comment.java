@@ -1,8 +1,13 @@
 package com.example.networth.models;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 public class Comment {
 
@@ -10,71 +15,30 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column(nullable = false)
-    private long postingUserId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(length = 2500)
     String imgUrl;
 
     @Column(nullable = false, length = 3000)
-    String comment;
+    String message;
 
     public Comment() {
     }
 
-    public Comment(long id, Post post, long postingUserId, String imgUrl, String comment) {
+    public Comment(long id, Post post, User user, String imgUrl, String message) {
         this.id = id;
         this.post = post;
-        this.postingUserId = postingUserId;
+        this.user = user;
         this.imgUrl = imgUrl;
-        this.comment = comment;
+        this.message = message;
     }
 
-    public Comment(String comment) {
-        this.comment = comment;
-    }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
-    public long getPostingUserId() {
-        return postingUserId;
-    }
-
-    public void setPostingUserId(long postingUserId) {
-        this.postingUserId = postingUserId;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 }
