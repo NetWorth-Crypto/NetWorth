@@ -123,10 +123,10 @@ public class User {
         post.setUser(this);
     }
 
-    public void removePost(Post post){
+    public void removePost(Post post) {
         this.posts.remove(post);
         post.setUser(null);
-        
+    }
     //Add and remove Follower objects
     public void addFollower(Follower follower){
         this.followers.add(follower);
