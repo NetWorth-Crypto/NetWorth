@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -30,6 +31,12 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column
+    private String profilePicture = "https://cdn.filestackcontent.com/SftfgsETQmEGDT0gfjsq"; //Default image
+
+    @Column
+    private String userTitle;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
@@ -48,6 +55,12 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<PostDislike> dislikes;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<Post> posts;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<Comment> comments;
 
     //Constructors
     public User() {
@@ -104,6 +117,16 @@ public class User {
         postDisLike.setPost(null);
     }
 
+    //Add and Remove PostLike objects
+    public void addPost(Post post){
+        this.posts.add(post);
+        post.setUser(this);
+    }
+
+    public void removePost(Post post){
+        this.posts.remove(post);
+        post.setUser(null);
+        
     //Add and remove Follower objects
     public void addFollower(Follower follower){
         this.followers.add(follower);

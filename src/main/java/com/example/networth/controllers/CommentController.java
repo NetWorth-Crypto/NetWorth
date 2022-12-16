@@ -23,18 +23,18 @@ public class CommentController {
     /* Create Comment */
     @GetMapping("/createComment")
     public String showCommentForm(Model model) {
-        model.addAttribute("Comment", new Comment());
+        model.addAttribute("comment", new Comment());
         return "comments/createComment";
     }
 
     @PostMapping("comments/createComment")
-    public String submitComment(@ModelAttribute("submitComment") Comment comment, Model model) {
+    public String submitComment(@ModelAttribute Comment comment, Model model) {
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        comment.setComment("comment");
+        System.out.println(comment.getMessage());
+        model.addAttribute("comment", comment);
 
-        model.addAttribute("Comment", comment);
-
-        return "comments/createComment";
+        return "redirect:/createComment";
     }
 
     /* Read Comment */
@@ -55,23 +55,28 @@ public class CommentController {
     @GetMapping("/comments/{id}/editComment")
     public String getEditComment(@PathVariable long id, Model model)
     {
-        model.addAttribute("editComment", commentDao.getReferenceById(id));
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Comment comment =  commentDao.getReferenceById(id);
+        System.out.println(comment.getId());
+        System.out.println(comment.getUser());
+        System.out.println(comment.getPost().getId());
+        System.out.println(comment.getMessage());
+        System.out.println("This is the user: " + user);
+
+//        model.addAttribute("editComment", commentDao.getReferenceById(id));
 
         return "comments/editComment";
     }
 
-    @PostMapping("/comments/{id}/editComment")
-    public String postEditComment(@ModelAttribute Comment comment)
+    @PostMapping("/comments/editComment")
+    public String postEditComment()
     {
-        System.out.println(comment.toString());
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        System.out.println(comment.getId());
-//        System.out.println(comment.getPost());
-//        System.out.println(comment.getPostingUserId());
-//        comment.setPostingUserId(1);
+        System.out.println("Reached Edit Final");
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(user);
 //        commentDao.save(comment);
 
-        return "redirect:/comments/" + comment.getId();
+//        return "redirect:/comments/" + comment.getId();
+        return "/comments/readComment";
     }
 }

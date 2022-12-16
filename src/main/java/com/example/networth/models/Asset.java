@@ -32,6 +32,14 @@ public class Asset {
         this.currentPrice = currentPrice;
     }
 
+    public Asset(long id, String ticker, String name, double currentPrice) {
+        this.id = id;
+
+        this.ticker = ticker;
+        this.name = name;
+        this.currentPrice = currentPrice;
+    }
+
     public long getId() {
         return id;
     }
@@ -69,7 +77,19 @@ public class Asset {
         return currentPrice;
     }
 
+    @Override
+    public String toString() {
+        return "Asset{" +
+                "id=" + id +
+                ", ticker='" + ticker + '\'' +
+                ", name='" + name + '\'' +
+                ", currentPrice=" + currentPrice +
+                '}';
+    }
+
     public void setCurrentPrice(double currentPrice) {
         this.currentPrice = currentPrice;
     }
+
+
 }
