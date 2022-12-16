@@ -27,75 +27,73 @@ public class UserFinancePortfolioCtl {
     private final PortfolioService portfolioService;
     private final AssetService assetService;
     private final PortfolioAssetService portAssetDao;
-    public UserFinancePortfolioCtl(PortfolioService portfolioService, PortfolioAssetService portAssetDao,AssetService assetService) {
+
+    public UserFinancePortfolioCtl(PortfolioService portfolioService, PortfolioAssetService portAssetDao, AssetService assetService) {
         this.portfolioService = portfolioService;
         this.portAssetDao = portAssetDao;
         this.assetService = assetService;
     }
 
-//****************************VIEW USERFINANCE PAGE IF LOGIN************************************
+    //****************************VIEW USERFINANCE PAGE IF LOGIN************************************
     @GetMapping("/userFinance")
     public String userFinancePage(Model model, RedirectAttributes redirectAttrs) {
 
-  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (auth.getPrincipal()=="anonymousUser") {
-            redirectAttrs.addFlashAttribute("login","login to continue");
+        if (auth.getPrincipal() == "anonymousUser") {
+            redirectAttrs.addFlashAttribute("login", "login to continue");
             return "redirect:/login";
         }
-        User user = (User)auth.getPrincipal();
+        User user = (User) auth.getPrincipal();
         System.out.println(user);
-       List<Portfolio> portfolios =portfolioService.findByUser(user);
-       model.addAttribute("portfolios",portfolios);
-            return "users/userFinance";
+        List<Portfolio> portfolios = portfolioService.findByUser(user);
+        model.addAttribute("portfolios", portfolios);
+        return "users/userFinance";
     }
-
-
 
 
 //    **************************CREATE PORTFOLIO**************************************
 
     @GetMapping("/createPortfolio")
-    public String createPortfolio(){
+    public String createPortfolio() {
         return "createPortfolio";
     }
 
     @PostMapping("/addPortfolio")
-    public String addPortfolio(@RequestParam("name")String name,
-                               @RequestParam("dollarLimit")int dollarLimit,
-                               @RequestParam("type")String type
-                              ){
+    public String addPortfolio(@RequestParam("name") String name,
+                               @RequestParam("dollarLimit") int dollarLimit,
+                               @RequestParam("type") String type
+    ) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        boolean isDefault =type.equals("Default");
+        boolean isDefault = type.equals("Default");
         boolean isPrivate = type.equals("Private");
-        Portfolio portfolio = new Portfolio((User)auth.getPrincipal(),name,isDefault,dollarLimit,isPrivate);
+        Portfolio portfolio = new Portfolio((User) auth.getPrincipal(), name, isDefault, dollarLimit, isPrivate);
 
-portfolioService.addPortfolio(portfolio);
+        portfolioService.addPortfolio(portfolio);
         return "redirect:/userFinance";
     }
 
 
-//    *****************************VIW PORTFOLIO ASSET*********************************
+    //    *****************************VIW PORTFOLIO ASSET*********************************
     @GetMapping(path = "/asset/{id}")
-    public String getAsset(@PathVariable long id, Model model){
+    public String getAsset(@PathVariable long id, Model model) {
         System.out.println(id);
         Portfolio portfolio = portfolioService.findById(id);
         System.out.println(portfolio.getName());
         List<PortfolioAsset> portfolioAssets = portAssetDao.findByPortfolio(portfolio);
-        model.addAttribute("portfolioAssets",portfolioAssets);
+        model.addAttribute("portfolioAssets", portfolioAssets);
 
         List<Asset> assets = new ArrayList<>();
-        for(PortfolioAsset ass: portfolioAssets){
+        for (PortfolioAsset ass : portfolioAssets) {
             Asset asset = assetService.findById(ass.getAsset().getId());
             assets.add(asset);
 
         }
-model.addAttribute("assets",assets);
+        model.addAttribute("assets", assets);
 
 
         return "viewAssets";
     }
-
 
 
 //    VIEW ALL ASSET*************************************************
@@ -107,26 +105,55 @@ model.addAttribute("assets",assets);
         User currentUser = (User) auth.getPrincipal();
         List<Portfolio> portfolios = portfolioService.findByUser(currentUser);
 
-List<PortfolioAsset>total = new ArrayList<>();
+        List<PortfolioAsset> total = new ArrayList<>();
         for (Portfolio portfolio : portfolios) {
-          List<PortfolioAsset> portfolioAssets = portAssetDao.findByPortfolio(portfolio);
+            List<PortfolioAsset> portfolioAssets = portAssetDao.findByPortfolio(portfolio);
             total.addAll(portfolioAssets);
-            }
+        }
 
         List<Asset> assets = new ArrayList<>();
-        for(PortfolioAsset ass: total){
+        for (PortfolioAsset ass : total) {
             Asset asset = assetService.findById(ass.getAsset().getId());
             assets.add(asset);
 
         }
 
-        model.addAttribute("portfolioAssets",total);
+        model.addAttribute("portfolioAssets", total);
 
-        model.addAttribute("assets",assets);
+        model.addAttribute("assets", assets);
         return "viewAssets";
-        }
-
-
     }
 
 
+//    Dellete Asset**********************************************
+
+
+    @GetMapping("/deleteAsset/{id}")
+    public String deleteAsset(@PathVariable long id, RedirectAttributes attributes){
+        Asset asset = assetService.findById(id);
+        System.out.println(asset.toString());
+        attributes.addFlashAttribute("delete",asset.getName()+"Has been deleted from your Portfolio");
+
+        PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
+        System.out.println(portfolioAsset.toString());
+        portAssetDao.delete(portfolioAsset);
+        assetService.delete(asset);
+
+        return "redirect:/viewAll";
+    }
+
+    @GetMapping("/asset/deleteAsset/{id}")
+    public String deleteAssetFromPortfolio(@PathVariable long id, RedirectAttributes attributes){
+        Asset asset = assetService.findById(id);
+        System.out.println(asset.toString());
+        attributes.addFlashAttribute("delete",asset.getName()+"Has been deleted from your Portfolio");
+
+        PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
+        System.out.println(portfolioAsset.toString());
+        portAssetDao.delete(portfolioAsset);
+        assetService.delete(asset);
+
+        return "redirect:/viewAll";
+    }
+
+}

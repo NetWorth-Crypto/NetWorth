@@ -23,4 +23,7 @@ public class AssetService {
         return assetDao.findById(id).get();
     }
 
+    public void delete(Asset asset) {
+        assetDao.delete(asset);
+    }
 }
