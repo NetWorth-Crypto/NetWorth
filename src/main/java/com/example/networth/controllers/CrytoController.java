@@ -41,30 +41,25 @@ public class CrytoController {
     }
 
     @GetMapping(path = "/addCrypto/{price}/{name}/{ticker}")
-    public String addCrypto(@PathVariable String name,@PathVariable String ticker,@PathVariable float price, Model model){
+    public String addCrypto(@PathVariable String name,@PathVariable String ticker,@PathVariable float price, Model model,RedirectAttributes redirectAttrs){
 
-        boolean isLogin = SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser" || SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null;
-        if(!isLogin){
-    model.addAttribute("login", "login To access Portfolio");
-    return "users/login";}
-        System.out.println(price);
-        System.out.println(name);
-        System.out.println(ticker);
+       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth.getPrincipal()=="anonymousUser"){
+    redirectAttrs.addFlashAttribute("login", "login To access Portfolio");
+    return "redirect:/login";}
+
         model.addAttribute("price",price);
         model.addAttribute("name",name);
         model.addAttribute("ticker",ticker);
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         User user = (User)auth.getPrincipal();
         System.out.println(user);
         List<Portfolio> portfolios =portfolioService.findByUser(user);
         model.addAttribute("portfolios",portfolios);
 if(portfolios.isEmpty()){
-   model.addAttribute("needPortfolio","Creat a portfolio in order to add assets");
-   return "createPortfolio";
+   redirectAttrs.addFlashAttribute("needPortfolio","Creat a portfolio in order to add assets");
+   return "redirect:/createPortfolio";
 }
-
 
         return "/addAsset";
     }
@@ -74,30 +69,33 @@ if(portfolios.isEmpty()){
                            @RequestParam("ticker")String ticker,
                            @RequestParam("price")double price,
                            @RequestParam("quantity")int quantity,
-                           @RequestParam("portfolio")String portfolio,
-                              Model model )
-                          {
-Portfolio newPortfolio = portfolioService.findByName(portfolio);
-       Asset checkAsset = assetService.findByName(name);
+                           @RequestParam("portfolio")long portfolio,
+                              Model model,
+    RedirectAttributes redirectAttrs) {
 
-       if(assetService.findByName(name)==null || pAservice.findByAssetAndPortfolio(assetService.findByName(name),newPortfolio)==null) {
-           assetService.addAsset(new Asset(ticker, name, price));
-           Asset asset = assetService.findByName(name);
+        Portfolio newPortfolio = portfolioService.findById(portfolio);
 
-           Portfolio portfolio1 = portfolioService.findByName(portfolio);
+        if (assetService.findByName(name) != null || pAservice.findByAssetAndPortfolio(assetService.findByName(name),newPortfolio) != null) {
+            redirectAttrs.addFlashAttribute("red", "Ticker already Exist in Portfolio");
+            return "redirect:/crypto";
+        }
+            assetService.addAsset(new Asset(ticker, name, price));
+            Asset asset = assetService.findByName(name);
 
-
-           Date date = new Date();
-           pAservice.addpAsset(new PortfolioAsset(portfolio1, asset, quantity, price, date));
-
-           return "redirect:/userFinance";
-       }else {
-          model.addAttribute("red","Ticker already Exist in Portfolio");
-           return "addAsset";
-       }
-
-    }
+            Portfolio portfolio1 = portfolioService.findById(portfolio);
 
 
+            Date date = new Date();
+            pAservice.addpAsset(new PortfolioAsset(portfolio1, asset, quantity, price, date));
 
-}
+            return "redirect:/userFinance";
+
+        }
+
+        }
+
+
+
+
+
+

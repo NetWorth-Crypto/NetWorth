@@ -3,20 +3,7 @@
 <head>
     <div th:replace="fragments :: myheader"></div>
 
-   <style>
 
-       table td,
-       table th {
-           text-overflow: ellipsis;
-           white-space: nowrap;
-           overflow: hidden;
-       }
-
-       .card {
-           border-radius: .5rem;
-       }
-
-   </style>
 
     <title>Home</title>
 </head>
@@ -27,8 +14,9 @@
 
 
 <section class="crypto-page">
+    <div class="alert alert-danger" role="alert" th:text="${red}" th:if="${red}"></div>
 
-    <div class="bg-image h-100" style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/tables/img4.jpg');">
+    <div class="bg-image h-100" style="">
         <div class="mask d-flex align-items-center h-100" style="background-color: rgba(25, 185, 234,.25);">
             <div class="container">
                 <div class="row justify-content-center">

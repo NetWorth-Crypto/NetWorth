@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table (name = "post")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +21,6 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column()
-    private String title;
 
     @Column
     private String imgUrl;
@@ -45,8 +44,8 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String imgUrl, String videoUrl,String description) {
-        this.title = title;
+    public Post(String imgUrl, String videoUrl,String description) {
+
         this.imgUrl = imgUrl;
         this.description = description;
         this.videoUrl = videoUrl;

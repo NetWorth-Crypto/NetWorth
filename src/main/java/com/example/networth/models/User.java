@@ -34,6 +34,9 @@ public class User {
     @Column
     private String profilePicture = "https://cdn.filestackcontent.com/SftfgsETQmEGDT0gfjsq"; //Default image
 
+    @Column
+    private String userTitle;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
@@ -54,7 +57,10 @@ public class User {
     private List<PostDislike> dislikes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
-    private List<Post> posts = new ArrayList<>();
+    private List<Post> posts;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<Comment> comments;
 
     //Constructors
     public User() {
@@ -120,6 +126,27 @@ public class User {
     public void removePost(Post post){
         this.posts.remove(post);
         post.setUser(null);
+        
+    //Add and remove Follower objects
+    public void addFollower(Follower follower){
+        this.followers.add(follower);
+        follower.setUser(this);
+    }
+
+    public void removeFollower(Follower follower){
+        this.followers.remove(follower);
+        follower.setUser(null);
+    }
+
+    //Add and remove Following objects
+    public void addFollowing(Following following){
+        this.followings.add(following);
+        following.setUser(this);
+    }
+
+    public void removeFollowing(Following following){
+        this.followings.remove(following);
+        following.setUser(null);
     }
 
 }

@@ -37,13 +37,19 @@ public class UserController {
         user.setPassword(hash);
         userService.saveUser(user);
 
-
         return "redirect:/login";
     }
 
-
-
-
+//    @GetMapping("/followers")
+//    public String followers()
+//    {
+//        return "users/followers";
+//    }
+//
+//    @GetMapping("/following")
+//    public String following(){
+//        return "users/following";
+//    }
 
 
 
