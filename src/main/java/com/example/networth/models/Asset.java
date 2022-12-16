@@ -32,6 +32,14 @@ public class Asset {
         this.currentPrice = currentPrice;
     }
 
+    public Asset(long id, String ticker, String name, double currentPrice) {
+        this.id = id;
+
+        this.ticker = ticker;
+        this.name = name;
+        this.currentPrice = currentPrice;
+    }
+
     public long getId() {
         return id;
     }

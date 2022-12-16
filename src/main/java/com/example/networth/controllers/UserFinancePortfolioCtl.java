@@ -146,13 +146,37 @@ public class UserFinancePortfolioCtl {
     public String deleteAssetFromPortfolio(@PathVariable long id, RedirectAttributes attributes){
         Asset asset = assetService.findById(id);
         System.out.println(asset.toString());
-        attributes.addFlashAttribute("delete",asset.getName()+"Has been deleted from your Portfolio");
+        attributes.addFlashAttribute("delete",asset.getName()+" has been deleted from your Portfolio");
 
         PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
         System.out.println(portfolioAsset.toString());
         portAssetDao.delete(portfolioAsset);
         assetService.delete(asset);
 
+        return "redirect:/viewAll";
+    }
+
+
+    @GetMapping("/updateAsset/{id}/{ticker}/{name}/{price}")
+    public String updateAsset(@PathVariable long id,
+                              @PathVariable String ticker,
+                              @PathVariable String name,
+                              @PathVariable float price,
+                              Model model){
+        System.out.println(id);
+        Asset asset = new Asset(id,ticker,name,price);
+        model.addAttribute("asset",asset);
+        return "updateAsset";
+    }
+
+    @PostMapping("/updating")
+    public String updating(@RequestParam("id")long id,
+                           @RequestParam("quantity")int quantity){
+
+        Asset asset = assetService.findById(id);
+        PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
+        portfolioAsset.setQuantity(quantity);
+        portAssetDao.save(portfolioAsset);
         return "redirect:/viewAll";
     }
 
