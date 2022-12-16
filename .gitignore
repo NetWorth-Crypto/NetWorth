@@ -34,3 +34,6 @@ build/
 
 #API Data
 filepickerAPI.js
+
+# production database
+src/main/resources/application.properties
