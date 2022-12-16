@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -26,6 +24,8 @@ public class NetworkController {
 
     @Autowired
     private UserRepository userDao;
+
+
 
     @GetMapping("/followers")
     public String testFollower(Model model) {
@@ -75,29 +75,13 @@ public class NetworkController {
         return "users/followers";
     }
 
-    @GetMapping("/following")
-    public String testFollowing(Model model) {
+    @GetMapping("/follow")
+    public String testFollow(Model model) {
         model.addAttribute("following", new Following());
-        return "users/following";
+        return "users/follow";
     }
 
-    @PostMapping("/create/following")
-    public String testFollowing1(@ModelAttribute("following") Following following,
-                                 @RequestParam("following_user_id") long following_user_id) {
-        //Get UserId from logged-in user to create following
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //Create new following
-        following.setUser(user);
-        following.setFollowing_user_id(following_user_id);
-        //Save new following to database
-
-        //        System.out.println(following.getFollowing_user_id());
-
-        followingDao.save(following);
-        return "users/following";
-    }
-
-    @PostMapping("/users/following")
+    @PostMapping("/following/users")
     public String followingTestUser(@ModelAttribute Following following) {
 
         User userFollowing = userDao.getReferenceById(following.getFollowing_user_id());
@@ -114,14 +98,40 @@ public class NetworkController {
                 //remove from follower from table
                 user.addFollowing(following1);
                 userFollowing.removeFollowing(following1);
-                followingDao.delete(following);
-                System.out.println("You are following " + following.getUser());
+                followingDao.delete(following1);
+                System.out.println("You are following " + following1.getUser());
                 //return to page
                 return "users/following";
             }
         }
         return "users/following";
     }
+
+
+
+    @GetMapping("/following")
+    public String testFollowing(Model model) {
+        model.addAttribute("following", new Following());
+        return "users/following";
+    }
+
+    @PostMapping("/users/following")
+    public String testFollowing(@ModelAttribute("following") Following following, @RequestParam("following_user_id") long following_user_id) {
+        //Get UserId from logged-in user to create following
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Create new following
+        following.setUser(user);
+        following.setFollowing_user_id(following_user_id);
+        //Save new following to database
+
+        //        System.out.println(following.getFollowing_user_id());
+
+        followingDao.save(following);
+        return "users/following";
+    }
+
+
+
 
 
 }
