@@ -26,7 +26,9 @@ public class ProfileController
         {
             return "redirect:login";
         }
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userDao.getReferenceById(loggedinUser.getId());
 
         model.addAttribute("updateProfile", user);
         return "users/profile";
@@ -40,12 +42,15 @@ public class ProfileController
         {
             return "redirect:login";
         }
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
         model.addAttribute("updateProfile", user);
 
         return "users/update-profile";
     }
-    @PostMapping("/update-profile")
+    @PostMapping("/update")
     public String updateProfile
             (@RequestParam("username")String username)
 //             @RequestParam("firstname") String firstname,
@@ -54,7 +59,11 @@ public class ProfileController
 //             @RequestParam("password") String password)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
+        User loggedinUser = (User) authentication.getPrincipal();
+
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
+
         user.setUsername(username);
 //        user.setFirstName(firstname);
 //        user.setLastName(lastname);
