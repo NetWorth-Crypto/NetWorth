@@ -33,7 +33,13 @@ public class Portfolio {
     public Portfolio() {
     }
 
-
+    public Portfolio(User user, String name, boolean isDefault, double dollarLimit, boolean isPrivate) {
+        this.user = user;
+        this.name = name;
+        this.isDefault = isDefault;
+        this.dollarLimit = dollarLimit;
+        this.isPrivate = isPrivate;
+    }
 
     public long getId() {
         return id;

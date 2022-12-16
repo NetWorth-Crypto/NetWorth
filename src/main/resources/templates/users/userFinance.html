@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
     <div th:replace="fragments :: myheader"></div>
 
     <div th:replace="fragments :: css"></div>
@@ -86,24 +85,50 @@
     <div class="col right-side">
         <div class="row d-flex flex-column">
             <div class="col myportfplio">
-<div th:each="portfolio: ${portfolios}" class="card mt-2">
-                <div  class="row row-cols-2 bg-light w-100">
 
-                    <div class="col-4">
-                        <p style="font-size: 5rem" class="fas fa-chart-line text-primary"></p>
-                    </div>
+                <div th:each="portfolio: ${portfolios}" class="card mt-2  portfolio">
 
-                    <div class="col col-8">
+                    <div class="row row-cols-2 bg-light w-100">
+
+                        <div class="col-4">
+                            <p style="font-size: 5rem" class="fas fa-chart-line text-primary"></p>
+                        </div>
+                        <div class="col col-8">
                             <h3 th:text="${portfolio.name}"></h3>
-                        <p th:text="${portfolio.dollarLimit}"></p>
+                            <p th:text="${portfolio.dollarLimit}"></p>
                         </div>
                     </div>
+
+                    <div>
+                        <a th:href="@{/asset/{id}(id = ${portfolio.id})}">view</a>
+                    </div>
                 </div>
+
 
             </div>
 
             <div class="col trending">
 
+                <div class=" card table-container mt-4">
+                    <h2 class="card-header">24 Hour Trending Crypto</h2>
+                    <div class="card-body ">
+
+                        <table class="table table-light table-striped">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Symbol</th>
+                                <th>market cap rank</th>
+
+                            </tr>
+                            </thead>
+                            <tbody id="trending-stock">
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
             </div>
 
         </div>
