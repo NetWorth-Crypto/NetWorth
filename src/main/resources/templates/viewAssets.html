@@ -51,11 +51,11 @@
                                             </div>
 
                                             <td>
-                                                <a href="" class="btn btn-primary">Edit</a>
+                                                <a th:href="@{/updateAsset/{id}/{ticker}/{name}/{price}(id=${asset.id},ticker=${asset.ticker},name=${asset.name},price=${asset.currentPrice})}" class="btn btn-primary">update Quantity</a>
                                             </td>
 
                                             <td>
-                                                <a th:href="@{deleteAsset/{id}(id=${asset.id})}" class="btn btn-primary">Delete</a>
+                                                <a th:href="@{/deleteAsset/{id}(id=${asset.id})}" class="btn btn-primary">Delete</a>
                                             </td>
 
                                         </tr>

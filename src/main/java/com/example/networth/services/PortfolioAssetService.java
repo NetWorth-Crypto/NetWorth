@@ -34,4 +34,8 @@ public class PortfolioAssetService {
     public void delete(PortfolioAsset portfolioAsset) {
         pADao.delete(portfolioAsset);
     }
+
+    public void save(PortfolioAsset portfolioAsset) {
+        pADao.save(portfolioAsset);
+    }
 }
