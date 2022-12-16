@@ -41,11 +41,23 @@ public class PostController {
 
         List<Comment> comments = commentDao.findAll();
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
 
+        model.addAttribute("user",user);
         model.addAttribute("posts",posts);
         model.addAttribute("comments",comments);
         model.addAttribute("newPost",new Post());
         model.addAttribute("newComment", new Comment());
+
+        System.out.println(posts.get(0).getVideoUrl());
+        System.out.println(posts.get(1).getVideoUrl());
+        System.out.println(posts.get(2).getVideoUrl());
 
         return "feed";
     }
@@ -162,7 +174,7 @@ public class PostController {
 
     @PostMapping("/posts/{id}/create/comment")
     public String createComment(@ModelAttribute Comment comment,
-                                @PathVariable long id){
+                                @PathVariable long id) {
 
         EntityManager em;
         System.out.println("Comment Section Hit!");
