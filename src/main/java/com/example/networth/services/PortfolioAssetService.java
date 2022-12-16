@@ -26,4 +26,12 @@ public class PortfolioAssetService {
     public PortfolioAsset findByAssetAndPortfolio(Asset asset, Portfolio portfolio){
        return pADao.findByAssetAndPortfolio(asset,portfolio);
     }
+
+    public PortfolioAsset findByAsset(Asset asset){
+        return pADao.findByAsset(asset);
+    }
+
+    public void delete(PortfolioAsset portfolioAsset) {
+        pADao.delete(portfolioAsset);
+    }
 }
