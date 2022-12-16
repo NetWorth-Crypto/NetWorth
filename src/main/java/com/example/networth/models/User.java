@@ -111,6 +111,26 @@ public class User {
         postDisLike.setPost(null);
     }
 
+    //Add and remove Follower objects
+    public void addFollower(Follower follower){
+        this.followers.add(follower);
+        follower.setUser(this);
+    }
+
+    public void removeFollower(Follower follower){
+        this.followers.remove(follower);
+        follower.setUser(null);
+    }
+
+    //Add and remove Following objects
+    public void addFollowing(Following following){
+        this.followings.add(following);
+        following.setUser(this);
+    }
+
+    public void removeFollowing(Following following){
+        this.followings.remove(following);
+        following.setUser(null);
     //Add and Remove PostLike objects
     public void addPost(Post post){
         this.posts.add(post);
