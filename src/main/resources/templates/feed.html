@@ -10,6 +10,7 @@
     <!--FontAwesome script-->
     <script src="https://kit.fontawesome.com/27b1eac4bf.js" crossorigin="anonymous"></script>
 
+
     <!--Custom style sheet-->
     <link href="css/post.css" rel="stylesheet">
 
@@ -32,8 +33,13 @@
             <span> </span>
 
             <ul class="navbar-nav ">
-                <li class="nav-item"><a class="nav-link" href="#">Sign-in</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+                <li class="nav-item">
+<!--                    <form th:action="@{/logout}" method="POST">-->
+<!--                        <button class="btn" type="submit">Logout</button>-->
+<!--                    </form>-->
+                </li>
+<!--                <li class="nav-item"><a class="nav-link" href="#">Sign-in</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>-->
             </ul>
         </div>
     </div>
@@ -74,7 +80,7 @@
                             <div class="card overflow-hidden">
                                 <!-- Cover image -->
                                 <div class="h-50px"
-                                     style="background-image:url(assets/images/bg/01.jpg); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
+                                     style="background-image:url(https://cdn.filestackcontent.com/svmsGOZIQxOdQmL06LHM); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
 
                                 <!-- Card body START -->
                                 <div class="card-body pt-0">
@@ -82,20 +88,20 @@
 
                                         <!-- Avatar -->
                                         <div class="avatar avatar-lg mt-n5 mb-3">
-                                            <a href="#!"><img class="avatar-img  border border-white border-3"
-                                                              src="images/AS_31.jpg" alt=""></a>
+                                            <a href="#!"><img style="width: 50px;" class="avatar-img  border border-white border-3"
+                                                              th:src="${user.profilePicture}" alt=""></a>
                                         </div>
 
                                         <!-- Info -->
-                                        <h5 class="mb-0"><a href="#!">Anthony Stevens</a></h5>
-                                        <small>Software Developer</small>
+                                        <h5 class="mb-0"><a href="#!" th:text="${user.firstName}+' '+${user.lastName}"></a></h5>
+                                        <small th:text="${user.userTitle}"></small>
                                         <p class="mt-3">Just Do it</p>
 
                                         <!-- User stat START -->
                                         <div class="hstack gap-2 gap-xl-3 justify-content-center">
                                             <!-- User stat item -->
                                             <div>
-                                                <h6 class="mb-0">256</h6>
+                                                <h6 class="mb-0" th:text="${user.getPosts().size()}"></h6>
                                                 <small>Post</small>
                                             </div>
 
@@ -120,20 +126,19 @@
 
                                     <!-- Divider -->
                                     <hr>
-
                                     <!-- Side Nav START -->
                                     <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/"> <img class="me-2 h-25px fa-fw" src=""
-                                                                               alt=""><span>My Network </span></a>
+                                            <a class="nav-link" href="/"><i class="fa-solid fa-network-wired"></i><span> My Network</span></a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href=""> <img class="me-2 h-20px fa-fw" src=""
-                                                                              alt=""><span>Profile </span></a>
+                                            <a class="nav-link" href="/profile"><i class="fa-solid fa-user"></i><span> Profile</span></a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href=""> <img class="me-2 h-20px fa-fw" src=""
-                                                                              alt=""><span>Crypto Market </span></a>
+                                            <a class="nav-link" href="/userFinance"> <i class="fa-brands fa-bitcoin"></i><span> My Dashboard</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/crypto"><i class="fa-solid fa-money-bill-trend-up"></i><span> Market</span></a>
                                         </li>
                                     </ul>
                                     <!-- Side Nav END -->
@@ -141,7 +146,11 @@
                                 <!-- Card body END -->
                                 <!-- Card footer -->
                                 <div class="card-footer text-center py-2">
-                                    <a class="btn btn-link btn-sm" href="">Logout </a>
+                                    <li class="nav-item">
+                                        <form th:action="@{/logout}" method="POST">
+                                            <button class="btn btn primary" type="submit">Logout</button>
+                                        </form>
+                                    </li>
                                 </div>
                             </div>
                             <!-- Card END -->
@@ -209,7 +218,7 @@
                                                     th:text="${post.getUser().firstName}"></strong> <strong
                                                     th:text="${post.getUser().lastName}"></strong> </a></h6>
                                         </div>
-                                        <p class="mb-0 small">Web Developer</p>
+                                        <p class="mb-0 small" th:text="${post.user.userTitle}"></p>
                                     </div>
                                 </div>
                             </div>
@@ -225,9 +234,8 @@
                             <div th:if="${post.imgUrl} != 'null'">
                                 <img th:src="${post.imgUrl}" class="card-img-top" alt="logoImage">
                             </div>
-
                             <!--video image-->
-                            <div th:if="${post.videoUrl} != 'null'">
+                            <div th:if="${post.videoUrl} == 'null'">
                                 <video width="540" height="320" controls>
                                     <source th:src="${post.videoUrl}" type="video/mp4">
                                 </video>
@@ -257,7 +265,7 @@
                                 <button class="btn" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                                         aria-expanded="false" aria-controls="collapseExample">
                                     Comment
-                                    <span class="badge bg-secondary">14</span>
+                                    <span class="badge bg-secondary" th:text="${post.getComments().size()}"></span>
                                 </button>
 
                             </div>
@@ -272,10 +280,10 @@
                                                        src="assets/images/avatar/12.jpg" alt=""> </a>
                                 </div>
                                 <!-- Comment box  -->
-                                <form class="w-100" th:action="@{/posts/{id}/create/comment(id=${post.id})}" th:method="post" th:object="${newComment}">
+                                <form class="w-75 d-flex justify-content-center" th:action="@{/posts/{id}/create/comment(id=${post.id})}" th:method="post" th:object="${newComment}">
                                     <textarea th:field="*{message}" name="commentSection" data-autoresize="" class="form-control pe-4 bg-light" rows="1"
                                               placeholder="Add a comment..."></textarea>
-                                    <button type="submit" >comment</button>
+                                    <button class="btn btn-outline-light" type="submit" >comment</button>
                                 </form>
                             </div>
                             <!-- Add comment END-->
@@ -289,7 +297,7 @@
                                             <!-- Avatar -->
                                             <!--GET COMMENT USER IMAGE-->
                                             <div class="avatar avatar-xs">
-                                                <a href="#!"><img class="avatar-img rounded-circle"
+                                                <a href=""><img style="width: 50px;" class="avatar-img rounded-circle"
                                                                   th:src="${comment.user.profilePicture}" alt=""></a>
                                             </div>
                                             <div class="ms-2">
@@ -328,6 +336,9 @@
                     <!--//Post Card item START-->
 
                 </div>
+                <!-- Card feed item END -->
+
+
             </div>
 
 

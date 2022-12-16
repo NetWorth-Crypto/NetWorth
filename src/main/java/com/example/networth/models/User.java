@@ -34,6 +34,9 @@ public class User {
     @Column
     private String profilePicture = "https://cdn.filestackcontent.com/SftfgsETQmEGDT0gfjsq"; //Default image
 
+    @Column
+    private String userTitle;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
